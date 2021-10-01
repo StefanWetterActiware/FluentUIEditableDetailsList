@@ -7,8 +7,6 @@ export interface Props extends IDetailsListProps {
     id: number;
     items: any[];
     columns: IColumnConfig[];
-    enableExport?: boolean;
-    exportFileName?: string;
     enableSave?: boolean;
     enableRowEdit?: boolean;
     enableRowEditCancel?: boolean;
@@ -25,7 +23,6 @@ export interface Props extends IDetailsListProps {
     enableTextFieldEditModeCancel?: boolean;
     enablePagination?: boolean;
     pageSize?: number;
-    onExcelExport?: any;
     height?: string;
     width? : string;
     position?: string;

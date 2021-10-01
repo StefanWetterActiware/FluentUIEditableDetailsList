@@ -9,7 +9,6 @@ import { DayPickerStrings } from "./datepickerconfig";
 import { controlClass, horizontalGapStackTokens, stackStyles, textFieldStyles, verticalGapStackTokens } from "./editablegridstyles";
 import { IsValidDataType } from "./helper";
 import PickerControl from "./pickercontrol/picker";
-import SearchableDropdown from "./searchabledropdown/searchabledropdown";
 
 interface Props {
     onChange: any;

@@ -25,7 +25,6 @@ import { InitializeInternalGrid, InitializeInternalGridEditStructure, ResetGridR
 import { EditControlType } from '../types/editcontroltype';
 import { dateToISOLikeButLocal, DayPickerStrings } from './datepickerconfig';
 import { ExportType } from '../types/exporttype';
-import { ExportToCSVUtil, ExportToExcelUtil } from './gridexportutil';
 import { EditType } from '../types/edittype';
 import MessageDialog from './messagedialog';
 import ColumnUpdateDialog from './columnupdatedialog';
@@ -40,7 +39,6 @@ import FilterCallout from './columnfiltercallout/filtercallout';
 import { IRowAddWithValues } from '../types/rowaddtype';
 import AddRowPanel from './addrowpanel';
 import { Props } from '../types/editabledetailslistprops';
-import SearchableDropdown from './searchabledropdown/searchabledropdown';
 import PickerControl from './pickercontrol/picker';
 
 const EditableGrid = (props: Props) => {
@@ -432,70 +430,6 @@ const EditableGrid = (props: Props) => {
         setGridEditState(true);
         SetGridItems(defaultGridDataTmp);
     }
-    /* #endregion */
-
-    /* #region [Grid Export Functions] */
-    const getExportableData = () : any[] => 
-    {
-        let exportableColumns = props.columns.filter(x=> x.includeColumnInExport == true);
-        
-        let exportableData : any[] = [];
-        let exportableObj : any = {};
-        if(!selectedItems || selectedItems.length == 0){
-            defaultGridData.filter(item => item._grid_row_operation_ != Operation.Delete && item._is_filtered_in_ && item._is_filtered_in_column_filter_ && item._is_filtered_in_grid_search_).forEach((item1, index1) => {
-                exportableColumns.forEach((item2, index2) => {
-                    exportableObj[item2.text] = item1[item2.key];
-                });
-                exportableData.push(exportableObj);
-                exportableObj = {};
-            });
-        }
-        else{
-            selectedItems!.forEach((sel, index) => {
-                defaultGridData.filter(item => item._grid_row_operation_ != Operation.Delete && item._is_filtered_in_ && item._is_filtered_in_column_filter_ && item._is_filtered_in_grid_search_).forEach((item1, index1) => {
-                    if(sel._grid_row_id_ == item1._grid_row_id_){
-                        exportableColumns.forEach((item2, index2) => {
-                            exportableObj[item2.text] = item1[item2.key];
-                        });
-                        exportableData.push(exportableObj);
-                        exportableObj = {};
-                    }
-                });
-            });
-        }
-
-        return exportableData;
-    }
-
-    const ExportToCSV = (dataRows : any[], fileName : string) : void => {
-        if(!props.onExcelExport){
-            ExportToCSVUtil(dataRows, fileName);
-        }
-        else{
-            props.onExcelExport(ExportType.CSV);
-        }
-    };
-
-    const ExportToExcel = (dataRows : any[], fileName : string) : void => {
-        if(!props.onExcelExport){
-            ExportToExcelUtil(dataRows, fileName);
-        }
-        else{
-            props.onExcelExport(ExportType.XLSX);
-        }
-    };
-
-    const onExportClick = (type : ExportType): void => {
-        let fileName = props.exportFileName != null && props.exportFileName.length > 0 ? props.exportFileName : 'ExcelExport';
-        switch (type){
-            case ExportType.XLSX:
-                ExportToExcel(getExportableData(), fileName + '.xlsx');
-                break;
-            case ExportType.CSV:
-                ExportToCSV(getExportableData(), fileName + '.csv');
-                break;
-        }
-    };
     /* #endregion */
 
     /* #region [Grid Cell Edit Functions] */
@@ -1249,33 +1183,6 @@ const EditableGrid = (props: Props) => {
     const CreateCommandBarItemProps = () : ICommandBarItemProps[] => {
         let commandBarItems: ICommandBarItemProps[] = [];
         
-        if(props.enableExport){
-            commandBarItems.push({ 
-                key: 'exportGrid', 
-                text: 'Export', 
-                ariaLabel: 'Export',
-                disabled: isGridInEdit || editMode,
-                cacheKey: 'myCacheKey', 
-                iconProps: { iconName: 'Download' },
-                subMenuProps: {
-                    items: [
-                        {
-                        key: 'exportToExcel',
-                        text: 'Excel Export',
-                        iconProps: { iconName: 'ExcelDocument' },
-                        onClick: () => onExportClick(ExportType.XLSX)
-                        },
-                        {
-                        key: 'exportToCSV',
-                        text: 'CSV Export',
-                        iconProps: { iconName: 'LandscapeOrientation' },
-                        onClick: () => onExportClick(ExportType.CSV)
-                        }
-                    ],
-                } 
-            });
-        }
-
         if(props.enableColumnFilterRules){
             commandBarItems.push({ 
                 key: 'columnFilters', 
@@ -1348,7 +1255,7 @@ const EditableGrid = (props: Props) => {
         if(props.enableGridRowsAdd){
             commandBarItems.push({
                 key: 'addrows',
-                text: "Add Rows",
+                text: "Add Row",
                 disabled: isGridInEdit || editMode,
                 iconProps: { iconName: "AddTo" },
                 onClick: () => RowSelectOperations(EditType.AddRow, {})

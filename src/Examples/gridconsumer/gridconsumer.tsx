@@ -121,7 +121,6 @@ const Consumer = () => {
                 enableBulkEdit={true}
                 items={items}
                 enableCellEdit={true}
-                enableExport={true}
                 enableTextFieldEditMode={true}
                 enableTextFieldEditModeCancel={true}
                 enableGridRowsDelete={true}
