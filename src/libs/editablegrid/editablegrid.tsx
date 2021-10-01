@@ -339,42 +339,11 @@ const EditableGrid = (props: Props) => {
     };
 
     const AddRowsToGrid = () : void => {
-        const updateItemName = () : void => {
-            if (SpinRef && SpinRef.current.value) {
-                setDialogContent(undefined);
-                setAnnounced(<Announced message="Rows Added" aria-live="assertive" />);
-                
-                let rowCount = parseInt(SpinRef.current.value, 10) ;
-                console.log(rowCount);
-                var addedRows = GetDefaultRowObject(rowCount);
-                var newGridData = [...defaultGridData, ...addedRows];
-                setGridEditState(true);
-                SetGridItems(newGridData);
-            }
-        };
-          
-        setDialogContent(
-            <>
-              <SpinButton
-                componentRef = {SpinRef}
-                defaultValue="0"
-                label={'Row Count:'}
-                min={0}
-                max={100}
-                step={1}
-                incrementButtonAriaLabel={'Increase value by 1'}
-                decrementButtonAriaLabel={'Decrease value by 1'}
-                />
-              <DialogFooter>
-                <PrimaryButton
-                  // eslint-disable-next-line react/jsx-no-bind
-                  onClick={updateItemName}
-                  text="Save"
-                />
-              </DialogFooter>
-            </>,
-          );
-    }
+        var addedRows = GetDefaultRowObject(1);
+        var newGridData = [...defaultGridData, ...addedRows];
+        setGridEditState(true);
+        SetGridItems(newGridData);
+}
 
     const onAddPanelChange = (item: any, noOfRows: number): void => {
         dismissPanelForAdd();
