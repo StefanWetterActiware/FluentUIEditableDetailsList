@@ -1,6 +1,5 @@
 import React from 'react';
 import { Stack, Text, Link, FontWeights, IStackTokens, IStackStyles, ITextStyles } from '@fluentui/react';
-import logo from './logo.svg';
 import './App.css';
 import Consumer from './Examples/gridconsumer/gridconsumer';
 
