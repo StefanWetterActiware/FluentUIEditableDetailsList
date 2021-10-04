@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 import * as React from 'react';
+// import React from 'react';
 import { ColumnActionsMode, ConstrainMode, IColumn, IDetailsHeaderProps } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList.types';
 import { useState, useEffect } from 'react';
 import { DetailsList, IDetailsListProps } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList';
@@ -416,6 +417,7 @@ const EditableGrid = (props: Props) => {
 
     const onCellValueChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, text: string, item : {}, row : number, key : string, column : IColumnConfig): void => {
         debugger;
+        onGridSave();
         if(!IsValidDataType(column.dataType, text)){
             return;
         }
@@ -705,6 +707,7 @@ const EditableGrid = (props: Props) => {
                 break;
             case EditType.AddRow:
                 AddRowsToGrid();
+                ShowRowEditMode(item , 0,  true); // TODO: 0 = rowNumber, muss noch angepasst werden.
                 //toggleHideDialog;
                 break;
             case EditType.DeleteRow:
