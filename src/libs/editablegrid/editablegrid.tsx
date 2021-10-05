@@ -945,6 +945,12 @@ const EditableGrid = (props: Props) => {
         gridColumnFilterArrRef.current = [];
     }
     /* #endregion [Grid Column Filter] */
+
+    const saveGrid = (item: any) : void => {
+        ShowRowEditMode(item, Number(item['_grid_row_id_'])!, false);
+        onGridSave();
+        
+    };
     
     const CreateColumnConfigs = () : IColumn[] => {
         
@@ -1166,7 +1172,7 @@ const EditableGrid = (props: Props) => {
                         ?
                         <div>
                             {/* // TODO: methode zum speichern des Grids - ShowRowEditMode ersetzen */}
-                            <IconButton disabled={editMode} onClick={() => ShowRowEditMode(item, Number(item['_grid_row_id_'])!, false)} iconProps={{ iconName: 'Save' }} title={'Save'}></IconButton>
+                            <IconButton disabled={editMode} onClick={() => saveGrid(item)} iconProps={{ iconName: 'Save' }} title={'Save'}></IconButton>
                             {props.enableRowEditCancel 
                                 ? 
                                 <IconButton disabled={editMode} onClick={() => CancelRowEditMode(item, Number(item['_grid_row_id_'])!)} iconProps={{ iconName: 'RemoveFilter' }} title={'Cancel'}></IconButton>
