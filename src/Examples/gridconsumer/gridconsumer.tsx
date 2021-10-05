@@ -77,13 +77,13 @@ const Consumer = () => {
     }
 
     const onDateChanged = (callbackRequestParamObj : ICallBackParams): any[] => {
-        debugger;
+        // debugger;
         alert('Date Changed');
         return callbackRequestParamObj.data;
     }
 
     const onEmploymentTypeChangedChanged = (callbackRequestParamObj : ICallBackParams): any[] => {
-        debugger;
+        // debugger;
         alert('Employment Type Changed');
         return callbackRequestParamObj.data;
     }
