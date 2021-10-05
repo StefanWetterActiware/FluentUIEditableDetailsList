@@ -23,7 +23,7 @@ const EditPanel = (props: Props) => {
     }
 
     const onTextUpdate = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, text: string, column : IColumnConfig): void => {
-        debugger;
+        // debugger;
         if(!IsValidDataType(column.dataType, text) || text.trim() == ''){
             return;
         }

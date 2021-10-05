@@ -3,7 +3,7 @@ import { IGridColumnFilter } from "../types/columnfilterstype";
 import { dateOperatorEval, IFilter, numberOperatorEval, stringOperatorEval } from "../types/filterstype";
 
 export const filterGridData = (data : any[], filters : IFilter[]) : any[] => {
-    debugger;
+    // debugger;
     var dataTmp : any[] = [...data];
     dataTmp.forEach((row) => {
         var isRowIncluded : boolean = true;
@@ -33,7 +33,7 @@ export const filterGridData = (data : any[], filters : IFilter[]) : any[] => {
 }
 
 export const applyGridColumnFilter = (data : any[], gridColumnFilterArr : IGridColumnFilter[]) : any[] => {
-    debugger;
+    // debugger;
     var dataTmp : any[] = [...data];
     if(gridColumnFilterArr.filter((item) => item.isApplied == true).length > 0){
         dataTmp.map((row) => row._is_filtered_in_column_filter_ = true);

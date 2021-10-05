@@ -71,7 +71,7 @@ const ColumnUpdateDialog = (props : Props) => {
     }, []);
 
     const saveDialog = (): void => {
-        debugger;
+        // debugger;
         if(props.onDialogSave){
             props.onDialogSave(columnDialogValues);
         }
@@ -97,7 +97,7 @@ const ColumnUpdateDialog = (props : Props) => {
     },[columnDialogValues]);
 
     useEffect(() => {
-        //debugger;
+        //// debugger;
         setColumnDialogValues({[gridColumn]:''});
         var column = props.columnConfigurationData.filter(x => x.key == gridColumn);
         if(column.length > 0){

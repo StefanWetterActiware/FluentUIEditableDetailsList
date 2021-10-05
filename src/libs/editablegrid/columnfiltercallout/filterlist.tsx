@@ -18,7 +18,7 @@ const FilterList = (props : Props) => {
     
     
     useEffect(() => {
-        debugger;
+        // debugger;
         if(props && props.filterList && props.filterList.length > 0){
             setFilterItemsList(props.filterList.map((item, index) => {
                 return {key: index, text : item.text, isFilteredIn : true, isChecked : item.isChecked};
@@ -36,7 +36,7 @@ const FilterList = (props : Props) => {
     }, [appliedFilters]);
 
     useEffect(() => {
-        debugger;
+        // debugger;
         SetIndeterminate(filterItemsList);
         if(filterItemsList && filterItemsList.length > 0){
             let tmpRenderObj : any[] = [];
@@ -77,7 +77,7 @@ const FilterList = (props : Props) => {
     }
 
     function onCheckChanged(ev: React.FormEvent<HTMLElement>, isChecked: boolean, key : number, text: string) {
-        debugger;
+        // debugger;
 
         var filterItemsListTmp : IFilterListItem[] = [...filterItemsList];
         filterItemsListTmp.filter((item) => item.key == key).map((item) => item.isChecked = isChecked);

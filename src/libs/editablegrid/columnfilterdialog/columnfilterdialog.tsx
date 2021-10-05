@@ -28,7 +28,7 @@ const ColumnFilterDialog = (props : Props) => {
     };
 
     const onSelectOperator = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption | undefined, index: number | undefined): void => {
-        debugger;
+        // debugger;
         console.log(item)
         setOperator(item!.text.toString());
         //var filterTmp : IFilter = {...filter};
@@ -122,7 +122,7 @@ const ColumnFilterDialog = (props : Props) => {
     const options = createDropDownOptions();
 
     const createCompareOptions = () : IDropdownOption[] => {
-        debugger;
+        // debugger;
         if(!(gridColumn && gridColumn.key && gridColumn.key.length > 0)){
             return [];
         }
@@ -183,7 +183,7 @@ const ColumnFilterDialog = (props : Props) => {
     }, []);
 
     const saveDialog = (): void => {
-        debugger;
+        // debugger;
         var filterObj : IFilter = { column: gridColumn!, operator: operator, value: value }
         if(props.onDialogSave){
             props.onDialogSave(filterObj);
