@@ -1130,6 +1130,7 @@ const EditableGrid = (props: Props) => {
                         {(activateCellEdit && activateCellEdit[Number(item['_grid_row_id_'])!] && activateCellEdit[Number(item['_grid_row_id_'])!]['isActivated']) 
                         ?
                         <div>
+                            {/* // TODO: methode zum speichern des Grids - ShowRowEditMode ersetzen */}
                             <IconButton disabled={editMode} onClick={() => ShowRowEditMode(item, Number(item['_grid_row_id_'])!, false)} iconProps={{ iconName: 'Save' }} title={'Save'}></IconButton>
                             {props.enableRowEditCancel 
                                 ? 
