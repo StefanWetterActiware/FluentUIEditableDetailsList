@@ -416,8 +416,6 @@ const EditableGrid = (props: Props) => {
     };
 
     const onCellValueChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, text: string, item : {}, row : number, key : string, column : IColumnConfig): void => {
-        debugger;
-        onGridSave();
         if(!IsValidDataType(column.dataType, text)){
             return;
         }
@@ -539,7 +537,7 @@ const EditableGrid = (props: Props) => {
     };
 
     const EditCellValue = (key : string, rowNum : number, activateCurrentCell : boolean) : void => {
-        debugger;
+        // debugger;
         let activateCellEditTmp : any[] = ChangeCellState(key, rowNum, activateCurrentCell, activateCellEdit);
         setActivateCellEdit(activateCellEditTmp);
 
@@ -611,7 +609,7 @@ const EditableGrid = (props: Props) => {
     }
 
     // const CancelRowEditMode = (item : any, rowNum : number) : void => {
-    //     debugger;
+    //     // debugger;
     //     // SetGridItems(defaultGridData);
     //     let activateCellEditTmp : any[] = ChangeRowState(item, rowNum, false);
     //     activateCellEditTmp = RevertRowEditValues(rowNum, activateCellEditTmp);
@@ -621,7 +619,7 @@ const EditableGrid = (props: Props) => {
     // }
 
     const CancelRowEditMode = (item : any, rowNum : number) : void => {
-        debugger;
+        // debugger;
         // SetGridItems(defaultGridData);
         let activateCellEditTmp : any[] = ChangeRowState(item, rowNum, false);
         activateCellEditTmp = RevertRowEditValues(rowNum, activateCellEditTmp);
@@ -650,7 +648,7 @@ const EditableGrid = (props: Props) => {
     
     /* #region [Grid Edit Mode Functions] */
     const ShowGridEditMode = () : void => {
-        debugger;
+        // debugger;
         var newEditModeValue = !editMode;
         if(newEditModeValue){
             setCancellableRows(defaultGridData);
@@ -678,7 +676,7 @@ const EditableGrid = (props: Props) => {
     }
 
     const CancelGridEditMode = () : void => {
-        debugger;
+        // debugger;
         SetGridItems(cancellableRows); 
         setCancellableRows([]);
         setEditMode(false);
@@ -707,7 +705,6 @@ const EditableGrid = (props: Props) => {
                 break;
             case EditType.AddRow:
                 AddRowsToGrid();
-                ShowRowEditMode(item , 0,  true); // TODO: 0 = rowNumber, muss noch angepasst werden.
                 //toggleHideDialog;
                 break;
             case EditType.DeleteRow:
