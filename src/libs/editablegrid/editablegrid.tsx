@@ -1221,17 +1221,6 @@ const EditableGrid = (props: Props) => {
             });
         }
     
-        if(props.enableSave == true){
-            commandBarItems.push({
-                key: 'submit',
-                text: 'Submit',
-                ariaLabel: 'Submit',
-                disabled: isGridInEdit,
-                iconProps: { iconName: 'Save' },
-                onClick: () => onGridSave(),
-            });
-        }
-    
         if(props.enableTextFieldEditMode){
             commandBarItems.push({
                 key: 'editmode',
