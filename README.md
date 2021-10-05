@@ -13,6 +13,7 @@ Some of the features of the Editable Grid are:-
 >- Single Column Edit
 >- Multi-Column, multi-row edit (Bulk Edit)
 >- Full Edit (Edit Mode)
+>- Sorting
 >- Deleting Rows
 >- Adding Rows
 >- Default Data Export (to Excel, CSV)
@@ -25,6 +26,9 @@ Some of the features of the Editable Grid are:-
 >- Rule-Based Cell Styling
 >- In-built support for controls like TextField, Multiline-Textfield, Picker, Dropdown, Calendar 
 >- The component is completely Accessible
+
+## Demo
+[Fluent UI Editable DetailsList Demo](https://editabledetailslist.azurewebsites.net)
 
 ## Clone & Run
 - clone the repository on your local machine.
