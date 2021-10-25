@@ -1,4 +1,4 @@
-import { DefaultButton, Dialog, DialogFooter, Dropdown, IDialogStyleProps, IDialogStyles, IDropdownOption, IDropdownStyles, IStackTokens, ITextFieldStyles, mergeStyleSets, PrimaryButton, Stack, TextField } from "office-ui-fabric-react";
+import { DefaultButton, Dialog, DialogFooter, Dropdown, IDropdownOption, PrimaryButton, Stack, TextField } from "office-ui-fabric-react";
 import React, { useEffect, useState } from "react";
 import { IColumnConfig } from "../../types/columnconfigtype";
 import { IFilter, IOperators, operatorsArr } from "../../types/filterstype";
@@ -21,7 +21,7 @@ const ColumnFilterDialog = (props : Props) => {
     const onSelectGridColumn = (event: React.FormEvent<HTMLDivElement>, item: IDropdownOption | undefined, index: number | undefined): void => {
         console.log(item)
         //setGridColumn(item!.key.toString());
-        setGridColumn(props.columnConfigurationData.filter((val) => val.key == item!.key)[0]);
+        setGridColumn(props.columnConfigurationData.filter((val) => val.key === item!.key)[0]);
         // var filterTmp : IFilter = {...filter};
         // filterTmp.column = item!.key.toString();
         // setFilter(filterTmp);
@@ -54,7 +54,7 @@ const ColumnFilterDialog = (props : Props) => {
 
     useEffect(() => {
         if(gridColumn && gridColumn.key && gridColumn.key.length > 0){
-            var column = props.columnConfigurationData.filter(x => x.key == gridColumn!.key);
+            var column = props.columnConfigurationData.filter(x => x.key === gridColumn!.key);
             if(column.length > 0){
                 var valueOptions = createValueOptions(column[0]);
                 switch(column[0].dataType){
@@ -126,15 +126,15 @@ const ColumnFilterDialog = (props : Props) => {
         if(!(gridColumn && gridColumn.key && gridColumn.key.length > 0)){
             return [];
         }
-        let dataType = props.columnConfigurationData.filter(x => x.key == gridColumn.key)[0].dataType;
+        let dataType = props.columnConfigurationData.filter(x => x.key === gridColumn.key)[0].dataType;
         let dropdownOptions: IDropdownOption[] = [];
         let operatorsOptions : any[] = [];
         switch(dataType){
             case 'string':
-                operatorsOptions = operatorsArr.filter((item) => item.type == 'string')[0].value;
+                operatorsOptions = operatorsArr.filter((item) => item.type === 'string')[0].value;
                 break;
             case 'number':
-                operatorsOptions = operatorsArr.filter((item) => item.type == 'number')[0].value;
+                operatorsOptions = operatorsArr.filter((item) => item.type === 'number')[0].value;
                 break;
         }
         operatorsOptions.forEach((item, index) => {

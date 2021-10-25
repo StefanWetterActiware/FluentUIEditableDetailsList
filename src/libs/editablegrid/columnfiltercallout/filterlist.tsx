@@ -1,6 +1,6 @@
-import { ActionButton, Checkbox, DefaultButton, Dropdown, mergeStyles, PrimaryButton, ScrollablePane, ScrollbarVisibility, Stack, TextField } from "office-ui-fabric-react";
-import React, { useEffect, useState } from "react";
-import { IFilterCalloutProps, IFilterItem, IFilterListItem, IFilterListProps } from "../../types/columnfilterstype";
+import { ActionButton, Checkbox, mergeStyles, ScrollablePane, ScrollbarVisibility, Stack, TextField } from "office-ui-fabric-react";
+import React, { useEffect } from "react";
+import { IFilterItem, IFilterListItem, IFilterListProps } from "../../types/columnfilterstype";
 import { styles, stackTokens } from "./filterliststyles";
 
 interface Props extends IFilterListProps {
@@ -40,7 +40,7 @@ const FilterList = (props : Props) => {
         SetIndeterminate(filterItemsList);
         if(filterItemsList && filterItemsList.length > 0){
             let tmpRenderObj : any[] = [];
-            filterItemsList.filter((item) => item.isFilteredIn == true).forEach((item, index) => {
+            filterItemsList.filter((item) => item.isFilteredIn === true).forEach((item, index) => {
                 tmpRenderObj.push(<Checkbox 
                                     label={item.text}
                                     key={item.key}
@@ -58,15 +58,15 @@ const FilterList = (props : Props) => {
     },[filterItemsList])
 
     const SetIndeterminate = (filterItemsList : IFilterListItem[]) : void => {
-        var checkedCount = filterItemsList.filter((item) => item.isChecked == true).length;
+        var checkedCount = filterItemsList.filter((item) => item.isChecked === true).length;
         var totalCount = filterItemsList.length;
         var uncheckedCount = totalCount - checkedCount;
 
-        if(checkedCount == totalCount){
+        if(checkedCount === totalCount){
             setIsSelectAllIndeterminate(false);
             setIsSelectAllChecked(true);
         }
-        else if(uncheckedCount == totalCount){
+        else if(uncheckedCount === totalCount){
             setIsSelectAllIndeterminate(false);
             setIsSelectAllChecked(false);
         }
@@ -80,11 +80,11 @@ const FilterList = (props : Props) => {
         // debugger;
 
         var filterItemsListTmp : IFilterListItem[] = [...filterItemsList];
-        filterItemsListTmp.filter((item) => item.key == key).map((item) => item.isChecked = isChecked);
+        filterItemsListTmp.filter((item) => item.key === key).map((item) => item.isChecked = isChecked);
         setFilterItemsList(filterItemsListTmp);
 
         var appliedFiltersTmp : IFilterItem[] = [...appliedFilters];
-        appliedFiltersTmp.filter((item) => item.text == text).map((item) => item.isChecked = isChecked);
+        appliedFiltersTmp.filter((item) => item.text === text).map((item) => item.isChecked = isChecked);
         setAppliedFilters(appliedFiltersTmp);
     }
 
@@ -174,7 +174,7 @@ const FilterList = (props : Props) => {
                         text="Clear All" 
                         className={styles.button}
                         onClick={onReset}
-                        disabled={appliedFilters.filter((item) => item.isChecked == true).length == 0} />
+                        disabled={appliedFilters.filter((item) => item.isChecked === true).length === 0} />
 
                     <ActionButton 
                         text="Cancel" 

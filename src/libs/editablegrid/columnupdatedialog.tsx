@@ -82,7 +82,7 @@ const ColumnUpdateDialog = (props : Props) => {
     const createDropDownOptions = () : IDropdownOption[] => {
         let dropdownOptions: IDropdownOption[] = [];
         props.columnConfigurationData.forEach((item, index) => {
-            if(item.editable == true){
+            if(item.editable === true){
                 dropdownOptions.push({ key: item.key, text: item.text});
             }
         });
@@ -99,7 +99,7 @@ const ColumnUpdateDialog = (props : Props) => {
     useEffect(() => {
         //// debugger;
         setColumnDialogValues({[gridColumn]:''});
-        var column = props.columnConfigurationData.filter(x => x.key == gridColumn);
+        var column = props.columnConfigurationData.filter(x => x.key === gridColumn);
         if(column.length > 0){
             switch(column[0].inputType){
                 case EditControlType.TextField:
