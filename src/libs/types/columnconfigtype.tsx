@@ -17,6 +17,7 @@ export interface IColumnConfig extends IColumn {
     includeColumnInSearch?: boolean;
     inputType?: EditControlType;
     calculatedColumn?: { type: CalculationType, fields: any[]  };
+    required?: boolean;
     onChange?: any;
     maxLength?: number;
     applyColumnFilter?: boolean;
