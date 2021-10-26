@@ -6,11 +6,7 @@ import { ConstrainMode, IColumn, IDetailsHeaderProps } from 'office-ui-fabric-re
 import { useState, useEffect } from 'react';
 import { DetailsList } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
-import {
-  DetailsListLayoutMode,
-  Selection,
-  IDetailsColumnRenderTooltipProps,
-} from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsListLayoutMode, Selection, IDetailsColumnRenderTooltipProps } from 'office-ui-fabric-react/lib/DetailsList';
 import { MarqueeSelection } from 'office-ui-fabric-react/lib/MarqueeSelection';
 import { IconButton } from 'office-ui-fabric-react/lib/components/Button/IconButton/IconButton';
 import {
@@ -109,7 +105,7 @@ const EditableGrid = (props: Props) => {
   });
 
   const onSearchHandler = (event: any) => {
-     var gridDataTmp : any[];
+    var gridDataTmp: any[];
     if (event && event.target) {
       let queryText = event.target.value;
       if (queryText) {
@@ -130,7 +126,6 @@ const EditableGrid = (props: Props) => {
               } else {
                 _gridData._is_filtered_in_grid_search_ = false;
               }
-              
             });
           } catch (e) {
             // if (e !== BreakException) throw e;
@@ -296,12 +291,12 @@ const EditableGrid = (props: Props) => {
 
   const CheckBulkUpdateOnChangeCallBack = (data: any, defaultGridDataTmp: any[]): any[] => {
     var columns: IColumnConfig[] = [];
-    data.forEach(function(key: any){
+    data.forEach(function (key: any) {
       var column = props.columns.filter((item) => item.key === key)[0];
       if (column.onChange) {
         columns.push(column);
       }
-    })
+    });
     columns.forEach((column) => {
       defaultGridDataTmp = CheckCellOnChangeCallBack(
         defaultGridDataTmp,
@@ -357,7 +352,7 @@ const EditableGrid = (props: Props) => {
     var objectKeys = Object.keys(exisitingRowObj);
 
     for (var i = 1; i <= rowCount; i++) {
-    let obj: any = {};
+      let obj: any = {};
       objectKeys.forEach((item) => {
         //obj[item] = 'NEW';
         obj[item] = '';
