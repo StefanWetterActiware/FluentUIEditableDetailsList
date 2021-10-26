@@ -1,5 +1,5 @@
 import { HoverCard, HoverCardType, IBasePickerSuggestionsProps, IInputProps, IPlainCardProps, ISuggestionItemProps, ITag, TagPicker } from "office-ui-fabric-react"
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { IPickerDescriptionOption, IPickerTagDescription } from "../../types/columnconfigtype";
 import { classNames } from "./picker.styles";
@@ -84,7 +84,7 @@ const PickerControl = (props: Props) => {
     const onRenderPlainCard = (item : ITag): JSX.Element => {
         return (
           <div className={classNames.plainCard}>
-            {pickerDescriptions.filter(x => x.key == item.key)[0].description}
+            {pickerDescriptions.filter(x => x.key === item.key)[0].description}
           </div>
         );
     };
