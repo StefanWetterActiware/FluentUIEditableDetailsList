@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 import * as React from 'react';
-// import React from 'react';
 import { ConstrainMode, IColumn, IDetailsHeaderProps } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList.types';
 import { useState, useEffect } from 'react';
 import { DetailsList } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList';
@@ -1063,7 +1062,7 @@ const EditableGrid = (props: Props) => {
                     <span
                       className={GetDynamicSpanStyles(column, item[column.key])}
                       onClick={() =>
-                        props.enableCellEdit == true && column.editable === true && props.enableSingleClickCellEdit
+                        props.enableCellEdit === true && column.editable === true && props.enableSingleClickCellEdit
                           ? EditCellValue(column.key, rowNum!, true)
                           : null
                       }
@@ -1100,7 +1099,6 @@ const EditableGrid = (props: Props) => {
                   )}
                 </span>
               );
-              break;
             case EditControlType.Date:
               return (
                 <span>
@@ -1137,7 +1135,6 @@ const EditableGrid = (props: Props) => {
                   )}
                 </span>
               );
-              break;
             case EditControlType.DropDown:
               return (
                 <span className={'row-' + rowNum! + '-col-' + index}>
