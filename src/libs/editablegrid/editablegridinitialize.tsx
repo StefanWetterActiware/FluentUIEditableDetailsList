@@ -8,7 +8,7 @@ initializeIcons(/* optional base url */);
 
 export const InitializeInternalGrid = (items : any[]) : any[] => {
     return items.map((obj, index) => {
-        if(Object.keys(obj).indexOf('_grid_row_id_') == -1 && Object.keys(obj).indexOf('_grid_row_operation_') == -1)
+        if(Object.keys(obj).indexOf('_grid_row_id_') === -1 && Object.keys(obj).indexOf('_grid_row_operation_') === -1)
         {
             obj._grid_row_id_ = index; 
             obj._grid_row_operation_ = Operation.None;
@@ -57,14 +57,14 @@ export const ShallowCopyDefaultGridToEditGrid = (defaultGrid : any[], editGrid :
 
 export const ShallowCopyEditGridToDefaultGrid = (defaultGrid : any[], editGrid : any[]) : any[] => {
     editGrid.forEach((item) => {
-        var index = defaultGrid.findIndex((row) => row._grid_row_id_ == item.properties._grid_row_id_.value);
+        var index = defaultGrid.findIndex((row) => row._grid_row_id_ === item.properties._grid_row_id_.value);
         if(index >= 0){
             var objectKeys = Object.keys(item.properties);
             objectKeys.forEach((objKey) => {
-                if(defaultGrid[index][objKey] != item.properties[objKey].value){
+                if(defaultGrid[index][objKey] !== item.properties[objKey].value){
                     defaultGrid[index][objKey] = item.properties[objKey].value;
 
-                    if(defaultGrid[index]['_grid_row_operation_'] != Operation.Add && defaultGrid[index]['_grid_row_operation_'] != Operation.Update){
+                    if(defaultGrid[index]['_grid_row_operation_'] !== Operation.Add && defaultGrid[index]['_grid_row_operation_'] !== Operation.Update){
                         defaultGrid[index]['_grid_row_operation_'] = Operation.Update;
                     }
                 }
