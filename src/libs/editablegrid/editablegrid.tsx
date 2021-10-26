@@ -296,13 +296,12 @@ const EditableGrid = (props: Props) => {
 
   const CheckBulkUpdateOnChangeCallBack = (data: any, defaultGridDataTmp: any[]): any[] => {
     var columns: IColumnConfig[] = [];
-    for (var key in data) {
+    data.forEach(function(key: any){
       var column = props.columns.filter((item) => item.key === key)[0];
       if (column.onChange) {
         columns.push(column);
       }
-    }
-
+    })
     columns.forEach((column) => {
       defaultGridDataTmp = CheckCellOnChangeCallBack(
         defaultGridDataTmp,
@@ -338,7 +337,6 @@ const EditableGrid = (props: Props) => {
   }, []);
 
   const GetDefaultRowObject = (rowCount: number): any[] => {
-    let obj: any = {};
     let exisitingRowObj: any = {};
     let addedRows: any[] = [];
     let _new_grid_row_id_ = Math.max.apply(
@@ -359,8 +357,8 @@ const EditableGrid = (props: Props) => {
     var objectKeys = Object.keys(exisitingRowObj);
 
     for (var i = 1; i <= rowCount; i++) {
-      obj = {};
-      objectKeys.forEach((item, index) => {
+    let obj: any = {};
+      objectKeys.forEach((item) => {
         //obj[item] = 'NEW';
         obj[item] = '';
       });
