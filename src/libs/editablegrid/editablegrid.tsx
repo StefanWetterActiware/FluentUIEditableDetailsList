@@ -828,7 +828,7 @@ const EditableGrid = (props: Props) => {
 
   const onFilterApplied = (filter: IFilter): void => {
     var tags: ITag[] = [...defaultTag];
-    tags.push({ name: "'" + filter.column.key + "' " + filter.operator + ' ' + "'" + filter.value + "'", key: filter.column.key });
+    tags.push({ name: "'" + filter.column.key + "'" + filter.operator + "'" + filter.value + "'", key: filter.column.key });
 
     var filterStoreTmp: IFilter[] = getFilterStoreRef();
     filterStoreTmp.push(filter);
@@ -991,19 +991,19 @@ const EditableGrid = (props: Props) => {
     return gridColumnFilterArr.filter((item) => item.column.key === key)[0];
   };
 
-  const setColumnFiltersRefAtIndex = (index: number, filter: IGridColumnFilter): void => {
-    gridColumnFilterArrRef.current[index] = filter;
-    console.log('Filter Column changed at index ' + index);
-    console.log(gridColumnFilterArrRef.current);
-  };
+  // const setColumnFiltersRefAtIndex = (index: number, filter: IGridColumnFilter): void => {
+  //   gridColumnFilterArrRef.current[index] = filter;
+  //   console.log('Filter Column changed at index ' + index);
+  //   console.log(gridColumnFilterArrRef.current);
+  // };
 
   const setColumnFiltersRef = (value: IGridColumnFilter[]): void => {
     gridColumnFilterArrRef.current = value;
   };
 
-  const clearColumnFiltersRef = (): void => {
-    gridColumnFilterArrRef.current = [];
-  };
+  // const clearColumnFiltersRef = (): void => {
+  //   gridColumnFilterArrRef.current = [];
+  // };
   /* #endregion [Grid Column Filter] */
 
   const saveGrid = (item: any): void => {
