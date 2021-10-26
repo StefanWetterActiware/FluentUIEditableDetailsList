@@ -1,8 +1,8 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { DatePicker, divProperties, Dropdown, IDropdownOption, IStackStyles, IStackTokens, ITag, ITextFieldStyles, mergeStyleSets, PrimaryButton, Stack, TextField } from "office-ui-fabric-react";
-import React, { useState } from "react";
+import { DatePicker, Dropdown, IDropdownOption, ITag, PrimaryButton, Stack, TextField } from "office-ui-fabric-react";
+import React from "react";
 import { IColumnConfig } from "../types/columnconfigtype";
 import { EditControlType } from "../types/editcontroltype";
 import { DayPickerStrings } from "./datepickerconfig";
@@ -24,7 +24,7 @@ const EditPanel = (props: Props) => {
 
     const onTextUpdate = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, text: string, column : IColumnConfig): void => {
         // debugger;
-        if(!IsValidDataType(column.dataType, text) || text.trim() == ''){
+        if(!IsValidDataType(column.dataType, text) || text.trim() === ''){
             return;
         }
         
@@ -52,7 +52,7 @@ const EditPanel = (props: Props) => {
     const createTextFields = () : any[] => {
         let tmpRenderObj : any[] = [];
         props.columnConfigurationData.forEach((item, index) => {
-            if(item.editable == true){
+            if(item.editable === true){
                 switch(item.inputType){
                     case EditControlType.Date:
                         tmpRenderObj.push(<DatePicker
