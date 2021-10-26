@@ -25,13 +25,13 @@ const PickerControl = (props: Props) => {
             setPickerTags(props.pickerTags.map(item => ({ key: item, name: item })));
             setdefaultTags(props?.defaultTags?.map(item => ({ key: item, name: item })) ?? []);
         }
-    }, [props.pickerTags]);
+    }, [props.pickerTags]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         if(props && props.pickerDescriptionOptions && props.pickerDescriptionOptions.enabled && props.pickerDescriptionOptions.values){
             setPickerDescriptions(props.pickerDescriptionOptions.values);
         }
-    }, [props.pickerDescriptionOptions]);
+    }, [props.pickerDescriptionOptions]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const pickerSuggestionsProps: IBasePickerSuggestionsProps = {
         suggestionsHeaderText: !props.minCharLimitForSuggestions ? 'Suggested tags' : (pickerFilteredText.length >= props.minCharLimitForSuggestions ? 'Suggested tags' : ''),
@@ -79,7 +79,7 @@ const PickerControl = (props: Props) => {
         if(props.onTaglistChanged){
             props.onTaglistChanged(tagList);
         }
-    },[]);
+    },[]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onRenderPlainCard = (item : ITag): JSX.Element => {
         return (
