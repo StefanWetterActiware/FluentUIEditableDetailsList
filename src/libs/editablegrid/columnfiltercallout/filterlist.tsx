@@ -30,7 +30,7 @@ const FilterList = (props : Props) => {
         else{
             setFilterItemsList([]);
         }
-    },[props.filterList])
+    },[props.filterList]) // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
     }, [appliedFilters]);
@@ -55,7 +55,7 @@ const FilterList = (props : Props) => {
         else{
             setFilterListContent(undefined);
         }
-    },[filterItemsList])
+    },[filterItemsList]) // eslint-disable-line react-hooks/exhaustive-deps
 
     const SetIndeterminate = (filterItemsList : IFilterListItem[]) : void => {
         var checkedCount = filterItemsList.filter((item) => item.isChecked === true).length;
