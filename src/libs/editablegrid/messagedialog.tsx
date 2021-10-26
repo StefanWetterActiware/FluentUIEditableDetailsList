@@ -17,7 +17,7 @@ const MessageDialog = (props : Props) => {
             props.onDialogClose();
         }
         setMessageDialogContent(undefined);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const controlClass = mergeStyleSets({
         dialogSubMessageStyles : {
@@ -42,7 +42,7 @@ const MessageDialog = (props : Props) => {
               </DialogFooter>
             </>,
           );
-    }, [props]);
+    }, [props]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return(
         <Dialog hidden={!messageDialogContent} onDismiss={closeDialog} closeButtonAriaLabel="Close">
