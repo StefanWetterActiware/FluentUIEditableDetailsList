@@ -109,6 +109,7 @@ const EditableGrid = (props: Props) => {
   });
 
   const onSearchHandler = (event: any) => {
+     var gridDataTmp : any[];
     if (event && event.target) {
       let queryText = event.target.value;
       if (queryText) {
@@ -139,12 +140,12 @@ const EditableGrid = (props: Props) => {
 
         setDefaultGridData(searchResult);
       } else {
-        var gridDataTmp: any[] = [...defaultGridData];
+        gridDataTmp = [...defaultGridData];
         gridDataTmp.map((item) => (item._is_filtered_in_grid_search_ = true));
         setDefaultGridData(gridDataTmp);
       }
     } else {
-      var gridDataTmp: any[] = [...defaultGridData];
+      gridDataTmp = [...defaultGridData];
       gridDataTmp.map((item) => (item._is_filtered_in_grid_search_ = true));
       setDefaultGridData(gridDataTmp);
     }
