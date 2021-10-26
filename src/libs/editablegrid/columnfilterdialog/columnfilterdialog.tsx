@@ -108,7 +108,7 @@ const ColumnFilterDialog = (props : Props) => {
             }
         }
         
-    }, [gridColumn]);
+    }, [gridColumn]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const createDropDownOptions = () : IDropdownOption[] => {
         let dropdownOptions: IDropdownOption[] = [];
@@ -180,7 +180,7 @@ const ColumnFilterDialog = (props : Props) => {
         }
         
         setInputFieldContent(undefined)
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const saveDialog = (): void => {
         // debugger;
