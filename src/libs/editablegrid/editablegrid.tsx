@@ -1170,7 +1170,6 @@ const EditableGrid = (props: Props) => {
                   )}
                 </span>
               );
-              break;
             case EditControlType.Picker:
               return (
                 <span>
@@ -1184,7 +1183,7 @@ const EditableGrid = (props: Props) => {
                     <span
                       className={GetDynamicSpanStyles(column, item[column.key])}
                       onClick={() =>
-                        props.enableCellEdit == true && column.editable === true && props.enableSingleClickCellEdit
+                        props.enableCellEdit === true && column.editable === true && props.enableSingleClickCellEdit
                           ? EditCellValue(column.key, rowNum!, true)
                           : null
                       }
@@ -1212,7 +1211,6 @@ const EditableGrid = (props: Props) => {
                   )}
                 </span>
               );
-              break;
             default:
               return (
                 <span>
