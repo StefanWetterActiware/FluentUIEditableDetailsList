@@ -115,10 +115,10 @@ const EditableGrid = (props: Props) => {
         let searchableColumns = props.columns.filter((x) => x.includeColumnInSearch === true).map((x) => x.key);
 
         let searchResult: any[] = [...defaultGridData];
-        searchResult.filter((_gridData, index) => {
+        searchResult.filter((_gridData) => {
           var BreakException = {};
           try {
-            searchableColumns.forEach((item2, index2) => {
+            searchableColumns.forEach((item2) => {
               if (
                 _gridData[item2] &&
                 _gridData[item2].toString().toLowerCase() &&
@@ -129,10 +129,12 @@ const EditableGrid = (props: Props) => {
               } else {
                 _gridData._is_filtered_in_grid_search_ = false;
               }
+              
             });
           } catch (e) {
             // if (e !== BreakException) throw e;
           }
+          return BreakException;
         });
 
         setDefaultGridData(searchResult);
