@@ -166,7 +166,7 @@ const EditableGrid = (props: Props) => {
       setGridEditState(false);
       SetGridItems(data);
     }
-  }, [props.items]);
+  }, [props.items]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     console.log('Backup Grid Data');
@@ -187,7 +187,7 @@ const EditableGrid = (props: Props) => {
     UpdateGridEditStatus();
     //console.log('activate cell edit');
     //console.log(activateCellEdit);
-  }, [activateCellEdit]);
+  }, [activateCellEdit]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     //alert('IsGridInEdit: ' + isGridInEdit);
@@ -195,7 +195,7 @@ const EditableGrid = (props: Props) => {
 
   useEffect(() => {
     SetFilteredGridData(getFilterStoreRef());
-  }, [filteredColumns]);
+  }, [filteredColumns]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (filterCalloutComponent) {
@@ -864,7 +864,7 @@ const EditableGrid = (props: Props) => {
     filteredColumnsTmp = props.columns.filter((item) => tagList!.filter((val) => val.key === item.key).length > 0);
     setFilteredColumns(filteredColumnsTmp);
     setDefaultTag(tagList!);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onFilterChanged = React.useCallback((filterText: string, tagList: ITag[] | undefined): ITag[] => {
     var emptyITag: ITag[] = [];
