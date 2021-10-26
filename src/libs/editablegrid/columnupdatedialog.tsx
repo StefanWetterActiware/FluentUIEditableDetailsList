@@ -68,7 +68,7 @@ const ColumnUpdateDialog = (props : Props) => {
         }
         
         setInputFieldContent(undefined)
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const saveDialog = (): void => {
         // debugger;
@@ -133,7 +133,7 @@ const ColumnUpdateDialog = (props : Props) => {
                     break;
             }
         }
-    }, [gridColumn]);
+    }, [gridColumn]); // eslint-disable-line react-hooks/exhaustive-deps
     
     return(
         <Dialog hidden={!inputFieldContent} onDismiss={closeDialog} closeButtonAriaLabel="Close">
