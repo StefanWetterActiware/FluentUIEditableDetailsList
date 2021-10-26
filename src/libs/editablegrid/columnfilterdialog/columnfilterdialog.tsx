@@ -1,7 +1,7 @@
 import { DefaultButton, Dialog, DialogFooter, Dropdown, IDropdownOption, PrimaryButton, Stack, TextField } from "office-ui-fabric-react";
 import React, { useEffect, useState } from "react";
 import { IColumnConfig } from "../../types/columnconfigtype";
-import { IFilter, IOperators, operatorsArr } from "../../types/filterstype";
+import { IFilter, operatorsArr } from "../../types/filterstype";
 import { controlClass, dropdownStyles, modelProps, stackTokens, textFieldStyles } from "./columnfilterdialogStyles";
 
 interface Props {
