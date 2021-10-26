@@ -132,6 +132,7 @@ const FilterList = (props : Props) => {
                     } catch (e) {
                         // if (e !== BreakException) throw e;
                     }
+                    return BreakException
                 }
             );
             setFilterItemsList(searchResult);
