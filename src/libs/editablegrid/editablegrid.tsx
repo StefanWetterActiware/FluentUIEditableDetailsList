@@ -1227,7 +1227,7 @@ const EditableGrid = (props: Props) => {
                     activateCellEdit[rowNum!] &&
                     activateCellEdit[rowNum!]['properties'][column.key] &&
                     activateCellEdit[rowNum!]['properties'][column.key].activated
-                  ) || (column.key == 'NameExtern' && ((props.undeleteableKeys || []).indexOf(item['NameExtern']) >= 0)) ? (
+                  ) || (column.key === 'NameExtern' && ((props.undeleteableKeys || []).indexOf(item['NameExtern']) >= 0)) ? (
                     <span
                       className={GetDynamicSpanStyles(column, item[column.key])}
                       onClick={() =>
