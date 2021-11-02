@@ -33,4 +33,5 @@ export interface Props extends IDetailsListProps {
     enableColumnFilters?: boolean;
     enableCommandBar?: boolean;
     enableSingleClickCellEdit?: boolean;
+    undeleteableKeys?: string[];
 }

@@ -100,8 +100,17 @@ const EditableGrid = (props: Props) => {
   const [sortColObj, setSortColObj] = React.useState<SortOptions>({ key: '', isAscending: false, isEnabled: false });
   let filterStoreRef: any = React.useRef<IFilter[]>([]);
 
+  const [undeletableRowSelected, setUndeletableRowSelected] = React.useState(false);
   let _selection: Selection = new Selection({
-    onSelectionChanged: () => setSelectionDetails(_getSelectionDetails()),
+    onSelectionChanged: () => {
+      setSelectionDetails(_getSelectionDetails());
+      var selDetails = _selection.getSelection();
+      if (selDetails.length > 0) {
+        var res = false;
+        selDetails.forEach((item) => {res = res || ((props.undeleteableKeys || []).indexOf((item as any)['NameExtern']) >= 0)})
+        setUndeletableRowSelected(res);
+      }
+    },
   });
 
   const onSearchHandler = (event: any) => {
@@ -743,8 +752,10 @@ const EditableGrid = (props: Props) => {
         //toggleHideDialog;
         break;
       case EditType.DeleteRow:
-        if (selectedIndices.length > 0) {
+        if (selectedIndices.length > 0 && !undeletableRowSelected) {
           DeleteSelectedRows();
+        } else if (undeletableRowSelected) {
+          ShowMessageDialog('Undeletable', 'Die ausgewählte Zeile darf nicht gelöscht werden!');
         } else {
           ShowMessageDialog('No Rows Selected', 'Please select some rows to perform this operation');
         }
@@ -1216,7 +1227,7 @@ const EditableGrid = (props: Props) => {
                     activateCellEdit[rowNum!] &&
                     activateCellEdit[rowNum!]['properties'][column.key] &&
                     activateCellEdit[rowNum!]['properties'][column.key].activated
-                  ) ? (
+                  ) || (column.key == 'NameExtern' && ((props.undeleteableKeys || []).indexOf(item['NameExtern']) >= 0)) ? (
                     <span
                       className={GetDynamicSpanStyles(column, item[column.key])}
                       onClick={() =>
