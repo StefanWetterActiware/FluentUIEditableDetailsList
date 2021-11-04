@@ -154,16 +154,10 @@ const EditableGrid = (props: Props) => {
     }
   };
 
+  // Custom - Ole & Alex
   React.useEffect(() => {
-    if (props && props.items && props.items.length > 0){
       ShowGridEditMode();
-      setGridEditState(true);
-      setEditMode(true);
-      setIsGridInEdit(editMode);
-      ShowGridEditMode();
-
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [defaultGridData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
     EventEmitter.subscribe(EventType.onSearch, onSearchHandler);
