@@ -73,7 +73,7 @@ const EditableGrid = (props: Props) => {
   const dismissPanelForAdd = React.useCallback(() => setIsOpenForAdd(false), []);
   const [, setGridData] = useState<any[]>([]);
   const [defaultGridData, setDefaultGridData] = useState<any[]>([]);
-  const [backupDefaultGridData, setBackupDefaultGridData] = useState<any[]>([]);
+  const [/*backupDefaultGridData*/, setBackupDefaultGridData] = useState<any[]>([]);
   const [activateCellEdit, setActivateCellEdit] = useState<any[]>([]);
   const [, setSelectionDetails] = useState('');
   const [selectedItems, setSelectedItems] = useState<any[]>();
@@ -157,8 +157,12 @@ const EditableGrid = (props: Props) => {
   // Custom - Ole & Alex
   React.useEffect(() => {
       ShowGridEditMode();
-      
   }, [defaultGridData]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Custom - Ole
+  React.useEffect(() => {
+
+  });
 
   React.useEffect(() => {
     EventEmitter.subscribe(EventType.onSearch, onSearchHandler);
@@ -168,7 +172,7 @@ const EditableGrid = (props: Props) => {
   });
 
   useEffect(() => {
-    if (props && props.items && props.items.length > 0) {
+    if ((!defaultGridData || defaultGridData.length == 0) && props && props.items && props.items.length > 0) {
       var data: any[] = InitializeInternalGrid(props.items);
       setGridData(data);
       setBackupDefaultGridData(data.map((obj) => ({ ...obj })));
@@ -485,9 +489,12 @@ const EditableGrid = (props: Props) => {
     // if (column.onChange) {
     //   HandleColumnOnChange(activateCellEditTmp, row, column);
     // }
-    SaveRowValue(item, row, defaultGridData);
+
+    //SaveSingleCellValue(key, row, defaultGridData);
+    saveData();
+
     //ShallowCopyEditGridToDefaultGrid(defaultGridData, activateCellEditTmp);
-    setActivateCellEdit(activateCellEditTmp);
+    //setActivateCellEdit(activateCellEditTmp);
   };
 
   const CheckCellOnChangeCallBack = (defaultGridDataTmp: any[], row: Number[], column: IColumnConfig): any[] => {
@@ -540,13 +547,22 @@ const EditableGrid = (props: Props) => {
       activateCellEditTmp.push(item);
     });
 
-    // INFO: Damit der Fokus nicht auf das letzte Dropdown springt
-    // if (column.onChange) {
-    //   HandleColumnOnChange(activateCellEditTmp, row, column);
-    // }
+    
+    if (column.onChange) {
+      HandleColumnOnChange(activateCellEditTmp, row, column);
+    }
 
     setActivateCellEdit(activateCellEditTmp);
   };
+
+  const saveData = () => {
+    let defaultGridDataTmp: any[] = [];
+    defaultGridData.forEach((item, rowNum) => {
+      defaultGridDataTmp = SaveRowValue(item, item['_grid_row_id_'], defaultGridData);
+    });
+    setDefaultGridData(defaultGridDataTmp);
+    onGridSave();
+  }
 
   const onCellPickerTagListChanged = (cellPickerTagList: ITag[] | undefined, row: number, column: IColumnConfig): void => {
     setGridEditState(true);
@@ -704,7 +720,7 @@ const EditableGrid = (props: Props) => {
   /* #region [Grid Edit Mode Functions] */
   const ShowGridEditMode = (): void => {
     // debugger;
-    var newEditModeValue = !editMode;
+    var newEditModeValue = true;//!editMode;
     if (newEditModeValue) {
       setCancellableRows(defaultGridData);
     } else {
@@ -719,22 +735,22 @@ const EditableGrid = (props: Props) => {
 
     setActivateCellEdit(activateCellEditTmp);
 
-    if (!newEditModeValue) {
-      defaultGridData.forEach((item, rowNum) => {
-        defaultGridDataTmp = SaveRowValue(item, item['_grid_row_id_'], defaultGridData);
-      });
-      setDefaultGridData(defaultGridDataTmp);
-    }
+    // if (!newEditModeValue) {
+    //   defaultGridData.forEach((item, rowNum) => {
+    //     defaultGridDataTmp = SaveRowValue(item, item['_grid_row_id_'], defaultGridData);
+    //   });
+    //   setDefaultGridData(defaultGridDataTmp);
+    // }
 
     setEditMode(newEditModeValue);
   };
 
-  const CancelGridEditMode = (): void => {
-    // debugger;
-    SetGridItems(cancellableRows);
-    setCancellableRows([]);
-    setEditMode(false);
-  };
+  // const CancelGridEditMode = (): void => {
+  //   // debugger;
+  //   SetGridItems(cancellableRows);
+  //   setCancellableRows([]);
+  //   setEditMode(false);
+  // };
   /* #endregion */
 
   const RowSelectOperations = (type: EditType, item: {}): boolean => {
@@ -778,11 +794,11 @@ const EditableGrid = (props: Props) => {
     return true;
   };
 
-  const ResetGridData = (): void => {
-    setGridEditState(false);
-    ClearFilters();
-    SetGridItems(backupDefaultGridData.map((obj) => ({ ...obj })));
-  };
+  // const ResetGridData = (): void => {
+  //   setGridEditState(false);
+  //   ClearFilters();
+  //   SetGridItems(backupDefaultGridData.map((obj) => ({ ...obj })));
+  // };
 
   /* #region [Column Click] */
   const onColumnClick = (ev: React.MouseEvent<HTMLElement>, column: IColumn, index: number) => {
@@ -792,7 +808,7 @@ const EditableGrid = (props: Props) => {
 
   const onColumnContextMenu = (column: IColumn | undefined, ev: React.MouseEvent<HTMLElement> | undefined) => {
     //ev!.preventDefault();
-    debugger;
+    //debugger;
     var newColumns: IColumn[] = GridColumns.slice();
     const currColumn: IColumn = newColumns.filter((currCol) => column!.key === currCol.key)[0];
     newColumns.forEach((newCol: IColumn) => {
