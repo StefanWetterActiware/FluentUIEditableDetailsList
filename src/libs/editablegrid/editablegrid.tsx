@@ -727,7 +727,7 @@ const EditableGrid = (props: Props) => {
       setCancellableRows([]);
     }
     let activateCellEditTmp: any[] = [];
-    let defaultGridDataTmp: any[] = [];
+    //let defaultGridDataTmp: any[] = [];
 
     defaultGridData.forEach((item, rowNum) => {
       activateCellEditTmp = ChangeRowState(item, item['_grid_row_id_'], newEditModeValue);
