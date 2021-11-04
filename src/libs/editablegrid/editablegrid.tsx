@@ -157,6 +157,7 @@ const EditableGrid = (props: Props) => {
   // Custom - Ole & Alex
   React.useEffect(() => {
       ShowGridEditMode();
+      
   }, [defaultGridData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
@@ -480,9 +481,10 @@ const EditableGrid = (props: Props) => {
       activateCellEditTmp.push(item);
     });
 
-    if (column.onChange) {
-      HandleColumnOnChange(activateCellEditTmp, row, column);
-    }
+    //INFO: Verliert den Fokus nach Eingabe eines Zeichens
+    // if (column.onChange) {
+    //   HandleColumnOnChange(activateCellEditTmp, row, column);
+    // }
 
     //ShallowCopyEditGridToDefaultGrid(defaultGridData, activateCellEditTmp);
     setActivateCellEdit(activateCellEditTmp);
@@ -1253,6 +1255,8 @@ const EditableGrid = (props: Props) => {
                       ariaLabel="Value"
                       styles={textFieldStyles}
                       onChange={(ev, text) => onCellValueChange(ev, text!, item, rowNum!, column.key, column)}
+                      //INFO
+                      //onBlur={() => SaveSingleCellValue(item['_grid_row_id_'], rowNum!, defaultGridData)}
                       autoFocus={
                         true &&
                         !editMode &&
@@ -1305,9 +1309,9 @@ const EditableGrid = (props: Props) => {
         maxWidth: 50,
         onRender: (item, index) => (
           <div>
-            {activateCellEdit &&
-            activateCellEdit[Number(item['_grid_row_id_'])!] &&
-            activateCellEdit[Number(item['_grid_row_id_'])!]['isActivated'] ? (
+            {!activateCellEdit &&
+            !activateCellEdit[Number(item['_grid_row_id_'])!] &&
+            !activateCellEdit[Number(item['_grid_row_id_'])!]['isActivated'] ? (
               <div>
                 <IconButton disabled={editMode} onClick={() => saveGrid(item)} iconProps={{ iconName: 'Save' }} title={'Save'}></IconButton>
                 {props.enableRowEditCancel ? (
