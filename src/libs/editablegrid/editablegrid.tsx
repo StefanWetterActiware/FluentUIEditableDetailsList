@@ -86,7 +86,6 @@ const EditableGrid = (props: Props) => {
   const [isColumnFilterClicked, setIsColumnFilterClicked] = React.useState(false);
   const [showSpinner] = useState(false);
   const [isGridStateEdited, setIsGridStateEdited] = useState(false);
-  //const defaultTag : ITag[] = [{name: 'Designation == \'Designation1\'', key:'kushal'}];
   const [defaultTag, setDefaultTag] = useState<ITag[]>([]);
   const [filteredColumns, setFilteredColumns] = useState<IColumnConfig[]>([]);
   const gridColumnFilterArrRef: any = React.useRef<IGridColumnFilter[]>([]);
@@ -156,6 +155,17 @@ const EditableGrid = (props: Props) => {
   };
 
   React.useEffect(() => {
+    if (props && props.items && props.items.length > 0){
+      ShowGridEditMode();
+      setGridEditState(true);
+      setEditMode(true);
+      setIsGridInEdit(editMode);
+      ShowGridEditMode();
+
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  React.useEffect(() => {
     EventEmitter.subscribe(EventType.onSearch, onSearchHandler);
     return function cleanup() {
       EventEmitter.unsubscribe(EventType.onSearch, onSearchHandler);
@@ -172,10 +182,10 @@ const EditableGrid = (props: Props) => {
     }
   }, [props.items]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    console.log('Backup Grid Data');
-    console.log(backupDefaultGridData);
-  }, [backupDefaultGridData]);
+  // useEffect(() => {
+  //   console.log('Backup Grid Data');
+  //   console.log(backupDefaultGridData);
+  // }, [backupDefaultGridData]);
 
   // useEffect(() => {
   //     console.log('Cancellable Rows');
@@ -1368,28 +1378,28 @@ const EditableGrid = (props: Props) => {
       });
     }
 
-    if (props.enableTextFieldEditModeCancel && editMode) {
-      commandBarItems.push({
-        key: 'editmodecancel',
-        disabled: isGridInEdit && !editMode,
-        text: 'Cancel',
-        iconProps: { iconName: 'Cancel' },
-        //onClick: () => {SetGridItems(defaultGridData); setEditMode(false)}
-        onClick: () => {
-          CancelGridEditMode();
-        },
-      });
-    }
+    // if (props.enableTextFieldEditModeCancel && editMode) {
+    //   commandBarItems.push({
+    //     key: 'editmodecancel',
+    //     disabled: isGridInEdit && !editMode,
+    //     text: 'Cancel',
+    //     iconProps: { iconName: 'Cancel' },
+    //     //onClick: () => {SetGridItems(defaultGridData); setEditMode(false)}
+    //     onClick: () => {
+    //       CancelGridEditMode();
+    //     },
+    //   });
+    // }
 
-    if (props.enableBulkEdit) {
-      commandBarItems.push({
-        key: 'bulkedit',
-        text: 'Bulk Edit',
-        disabled: isGridInEdit || editMode,
-        iconProps: { iconName: 'TripleColumnEdit' },
-        onClick: () => RowSelectOperations(EditType.BulkEdit, {}),
-      });
-    }
+    // if (props.enableBulkEdit) {
+    //   commandBarItems.push({
+    //     key: 'bulkedit',
+    //     text: 'Bulk Edit',
+    //     disabled: isGridInEdit || editMode,
+    //     iconProps: { iconName: 'TripleColumnEdit' },
+    //     onClick: () => RowSelectOperations(EditType.BulkEdit, {}),
+    //   });
+    // }
 
     if (props.enableGridRowsAdd) {
       commandBarItems.push({
@@ -1401,15 +1411,15 @@ const EditableGrid = (props: Props) => {
       });
     }
 
-    if (props.enableRowAddWithValues && props.enableRowAddWithValues.enable) {
-      commandBarItems.push({
-        key: 'addrowswithdata',
-        text: 'Add Rows with Data',
-        disabled: isGridInEdit || editMode,
-        iconProps: { iconName: 'AddToShoppingList' },
-        onClick: () => RowSelectOperations(EditType.AddRowWithData, {}),
-      });
-    }
+    // if (props.enableRowAddWithValues && props.enableRowAddWithValues.enable) {
+    //   commandBarItems.push({
+    //     key: 'addrowswithdata',
+    //     text: 'Add Rows with Data',
+    //     disabled: isGridInEdit || editMode,
+    //     iconProps: { iconName: 'AddToShoppingList' },
+    //     onClick: () => RowSelectOperations(EditType.AddRowWithData, {}),
+    //   });
+    // }
 
     if (props.enableGridRowsDelete) {
       commandBarItems.push({
@@ -1421,25 +1431,25 @@ const EditableGrid = (props: Props) => {
       });
     }
 
-    if (props.enableColumnEdit) {
-      commandBarItems.push({
-        key: 'updatecolumn',
-        disabled: isGridInEdit || editMode,
-        text: !isUpdateColumnClicked ? 'Update Column' : 'Save Column Update',
-        iconProps: { iconName: 'SingleColumnEdit' },
-        onClick: () => RowSelectOperations(EditType.ColumnEdit, {}),
-      });
-    }
+    // if (props.enableColumnEdit) {
+    //   commandBarItems.push({
+    //     key: 'updatecolumn',
+    //     disabled: isGridInEdit || editMode,
+    //     text: !isUpdateColumnClicked ? 'Update Column' : 'Save Column Update',
+    //     iconProps: { iconName: 'SingleColumnEdit' },
+    //     onClick: () => RowSelectOperations(EditType.ColumnEdit, {}),
+    //   });
+    // }
 
-    if (props.enableGridReset) {
-      commandBarItems.push({
-        key: 'resetGrid',
-        disabled: isGridInEdit || editMode || !isGridStateEdited,
-        text: 'Reset Data',
-        iconProps: { iconName: 'Refresh' },
-        onClick: () => ResetGridData(),
-      });
-    }
+    // if (props.enableGridReset) {
+    //   commandBarItems.push({
+    //     key: 'resetGrid',
+    //     disabled: isGridInEdit || editMode || !isGridStateEdited,
+    //     text: 'Reset Data',
+    //     iconProps: { iconName: 'Refresh' },
+    //     onClick: () => ResetGridData(),
+    //   });
+    // }
 
     return commandBarItems;
   };
