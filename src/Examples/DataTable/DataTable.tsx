@@ -131,7 +131,7 @@ const DataTable = (props: IDataTableProps) => {
         }
         layoutMode={DetailsListLayoutMode.justified}
         selectionMode={SelectionMode.single}
-        enableRowEdit={true}
+        enableRowEdit={false}
         enableRowEditCancel={true}
         enableBulkEdit={false}
         items={items}
