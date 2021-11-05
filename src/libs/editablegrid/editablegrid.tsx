@@ -159,11 +159,7 @@ const EditableGrid = (props: Props) => {
       ShowGridEditMode();
   }, [defaultGridData]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Custom - Ole
-  React.useEffect(() => {
-
-  });
-
+  
   React.useEffect(() => {
     EventEmitter.subscribe(EventType.onSearch, onSearchHandler);
     return function cleanup() {
