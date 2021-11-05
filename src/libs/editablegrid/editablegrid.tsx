@@ -1322,7 +1322,7 @@ const EditableGrid = (props: Props) => {
       commandBarItems.push({
         key: 'editmode',
         disabled: isGridInEdit && !editMode,
-        text: !editMode ? 'Edit Mode' : 'Save Edits',
+        text: !editMode ? 'Bearbeiten' : 'Speichern',
         iconProps: { iconName: !editMode ? 'Edit' : 'Save' },
         onClick: () => ShowGridEditMode(),
       });
@@ -1332,7 +1332,7 @@ const EditableGrid = (props: Props) => {
     if (props.enableGridRowsAdd) {
       commandBarItems.push({
         key: 'addrows',
-        text: 'Add Row',
+        text: 'Zeile hinzufügen',
         // disabled: isGridInEdit || editMode,
         // Custom - Alex: we always want to add rows!
         disabled: false,
@@ -1344,7 +1344,7 @@ const EditableGrid = (props: Props) => {
     if (props.enableGridRowsDelete) {
       commandBarItems.push({
         key: 'deleterows',
-        text: 'Delete Rows',
+        text: 'Zeile löschen',
         // disabled: isGridInEdit || editMode,
         // Custom - Alex: we always want to delete rows!
         disabled: false,
