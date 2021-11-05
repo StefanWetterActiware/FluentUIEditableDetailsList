@@ -702,8 +702,8 @@ const EditableGrid = (props: Props) => {
 
     setEditMode(newEditModeValue);
 
-        // Alex: sicher ist sicher
-        saveData();
+    // Alex: sicher ist sicher
+    saveData();
   };
 
   /* #endregion */
