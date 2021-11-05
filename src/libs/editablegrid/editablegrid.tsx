@@ -702,8 +702,8 @@ const EditableGrid = (props: Props) => {
 
     setEditMode(newEditModeValue);
 
-    // Alex: sicher ist sicher
-    saveData();
+    // wenn dieses saveData() drin ist, lädt nix!
+    // saveData();
   };
 
   /* #endregion */
