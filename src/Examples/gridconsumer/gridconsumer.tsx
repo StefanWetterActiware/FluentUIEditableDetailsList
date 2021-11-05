@@ -1,11 +1,10 @@
 // Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-import { DefaultButton, DetailsList, DetailsListLayoutMode, Fabric, mergeStyles, mergeStyleSets, SelectionMode, TextField } from 'office-ui-fabric-react';
+import { DetailsListLayoutMode, Fabric, mergeStyles, mergeStyleSets, SelectionMode, TextField } from 'office-ui-fabric-react';
 import * as React from 'react';
 import { useState } from 'react';
 import EditableGrid from '../../libs/editablegrid/editablegrid';
-import { ICallBackParams } from '../../libs/types/callbackparams';
 import { IColumnConfig } from '../../libs/types/columnconfigtype';
 import { GridColumnConfig, GridItemsType } from './gridconfig';
 import { EventEmitter, EventType } from '../../libs/eventemitter/EventEmitter.js';
