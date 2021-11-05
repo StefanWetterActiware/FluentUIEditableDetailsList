@@ -685,6 +685,7 @@ const EditableGrid = (props: Props) => {
   /* #region [Grid Edit Mode Functions] */
   const ShowGridEditMode = (): void => {
     // TODO: activate editmode with props?
+    // TODO: brauchen wir den ganzen kram hier überhaupt noch?
     var newEditModeValue = true;//!editMode;
     if (newEditModeValue) {
       setCancellableRows(defaultGridData);
@@ -700,6 +701,7 @@ const EditableGrid = (props: Props) => {
     setActivateCellEdit(activateCellEditTmp);
 
     setEditMode(newEditModeValue);
+
   };
 
   /* #endregion */
