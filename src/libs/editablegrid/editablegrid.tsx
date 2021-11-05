@@ -1361,7 +1361,9 @@ const EditableGrid = (props: Props) => {
         key: 'columnFilters',
         text: 'Filter',
         ariaLabel: 'Filter',
-        disabled: isGridInEdit || editMode,
+        // disabled: isGridInEdit || editMode,
+        // Custom - Alex: we always want a filter!
+        disabled: false,
         cacheKey: 'myColumnFilterCacheKey',
         iconProps: { iconName: 'Filter' },
         subMenuProps: {
@@ -1420,7 +1422,9 @@ const EditableGrid = (props: Props) => {
       commandBarItems.push({
         key: 'addrows',
         text: 'Add Row',
-        disabled: isGridInEdit || editMode,
+        // disabled: isGridInEdit || editMode,
+        // Custom - Alex: we always want to add rows!
+        disabled: false,
         iconProps: { iconName: 'AddTo' },
         onClick: () => RowSelectOperations(EditType.AddRow, {}),
       });
@@ -1440,7 +1444,9 @@ const EditableGrid = (props: Props) => {
       commandBarItems.push({
         key: 'deleterows',
         text: 'Delete Rows',
-        disabled: isGridInEdit || editMode,
+        // disabled: isGridInEdit || editMode,
+        // Custom - Alex: we always want to delete rows!
+        disabled: false,
         iconProps: { iconName: 'DeleteRows' },
         onClick: () => RowSelectOperations(EditType.DeleteRow, {}),
       });
