@@ -5,7 +5,7 @@ import { DefaultButton, DetailsList, DetailsListLayoutMode, Fabric, mergeStyles,
 import * as React from 'react';
 import { useState } from 'react';
 import EditableGrid from '../../libs/editablegrid/editablegrid';
-import { ICallBackParams, ICallBackRequestParams } from '../../libs/types/callbackparams';
+import { ICallBackParams } from '../../libs/types/callbackparams';
 import { IColumnConfig } from '../../libs/types/columnconfigtype';
 import { GridColumnConfig, GridItemsType } from './gridconfig';
 import { EventEmitter, EventType } from '../../libs/eventemitter/EventEmitter.js';
@@ -22,12 +22,6 @@ const Consumer = () => {
         }
       });
 
-    const GetRandomDate = (start : Date, end : Date) : Date => {
-        var diff =  end.getTime() - start.getTime();
-        var new_diff = diff * Math.random();
-        var date = new Date(start.getTime() + new_diff);
-        return date;
-    }
 
     const GetRandomInt = (min : number, max : number) : number => {
         min = Math.ceil(min);
@@ -71,30 +65,6 @@ const Consumer = () => {
         setItems([...data]);
     };
 
-    const onPayrollChanged = (callbackRequestParamObj : ICallBackParams): any[] => {
-        alert('Payroll Changed');
-        return callbackRequestParamObj.data;
-    }
-
-    const onDateChanged = (callbackRequestParamObj : ICallBackParams): any[] => {
-        // debugger;
-        alert('Date Changed');
-        return callbackRequestParamObj.data;
-    }
-
-    const onEmploymentTypeChangedChanged = (callbackRequestParamObj : ICallBackParams): any[] => {
-        // debugger;
-        alert('Employment Type Changed');
-        return callbackRequestParamObj.data;
-    }
-
-    const onDesignationChanged = (callbackRequestParamObj : ICallBackParams): any[] => {
-        callbackRequestParamObj.rowindex.forEach((index) => {
-            callbackRequestParamObj.data.filter((item) => item._grid_row_id_ == index).map((item) => item.salary = 30000);
-        });
-
-        return callbackRequestParamObj.data;
-    }
 
     const attachGridValueChangeCallbacks = (columnConfig : IColumnConfig[]) : IColumnConfig[] => {
         //columnConfig.filter((item) => item.key == 'designation').map((item) => item.onChange = onDesignationChanged);

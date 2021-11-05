@@ -1,9 +1,8 @@
 import React from 'react';
-import { Stack, Text, Link, FontWeights, IStackTokens, IStackStyles, ITextStyles } from '@fluentui/react';
+import { Stack, IStackTokens, IStackStyles } from '@fluentui/react';
 import './App.css';
 import Consumer from './Examples/gridconsumer/gridconsumer';
 
-const boldStyle: Partial<ITextStyles> = { root: { fontWeight: FontWeights.semibold } };
 const stackTokens: IStackTokens = { childrenGap: 15 };
 const stackStyles: Partial<IStackStyles> = {
   root: {
