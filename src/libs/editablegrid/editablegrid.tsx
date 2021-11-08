@@ -1321,17 +1321,6 @@ const EditableGrid = (props: Props) => {
       });
     }
 
-    if (props.enableTextFieldEditMode) {
-      commandBarItems.push({
-        key: 'editmode',
-        disabled: isGridInEdit && !editMode,
-        text: !editMode ? 'Bearbeiten' : 'Speichern',
-        iconProps: { iconName: !editMode ? 'Edit' : 'Save' },
-        onClick: () => ShowGridEditMode(),
-      });
-    }
-
-
     if (props.enableGridRowsAdd) {
       commandBarItems.push({
         key: 'addrows',
