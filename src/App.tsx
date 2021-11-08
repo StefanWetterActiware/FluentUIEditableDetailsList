@@ -28,7 +28,7 @@ export const App: React.FunctionComponent = () => {
         title={'TestData'}
         undeleteableKeys={minEntries}
         index={10}
-        colums={SampleDataColumnConfig}
+        columns={SampleDataColumnConfig}
         data={SampleRows}
         forbiddenValues={forbiddenNames}
         onSaveData={(data: IDataTableRow[]) => console.log("Saved")}

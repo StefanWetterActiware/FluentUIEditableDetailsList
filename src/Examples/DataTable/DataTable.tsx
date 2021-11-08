@@ -28,7 +28,7 @@ export interface ObsoleteDatatypObject {
 interface IDataTableProps {
   title?: string;
   index: number;
-  colums: IColumnConfig[];
+  columns: IColumnConfig[];
   data: IDataTableRow[];
   onSaveData?: any;
   onContextMenu?: any;
@@ -126,7 +126,7 @@ const DataTable = (props: IDataTableProps) => {
         enableSave={true}
         columns={
           attachGridValueChangeCallbacks(
-            JSON.parse(JSON.stringify(props.colums))
+            JSON.parse(JSON.stringify(props.columns))
           ) /* Damit bekommt jede Instanz des Table seine eigene Column-Liste. Sonst gibts Abhängigkeiten bei den Events. */
         }
         layoutMode={DetailsListLayoutMode.justified}
