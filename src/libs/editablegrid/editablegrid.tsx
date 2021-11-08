@@ -1475,7 +1475,7 @@ const EditableGrid = (props: Props) => {
           backgroundColor: 'white',
         })}>
         <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
-          <MarqueeSelection selection={_selection}>
+          {/* <MarqueeSelection selection={_selection}> */}
             <DetailsList
               compact={true}
               items={
@@ -1493,7 +1493,7 @@ const EditableGrid = (props: Props) => {
               selectionMode={props.selectionMode}
               layoutMode={DetailsListLayoutMode.fixedColumns}
               constrainMode={ConstrainMode.unconstrained}
-              selection={_selection}
+              // selection={_selection}
               setKey="none"
               onRenderDetailsHeader={onRenderDetailsHeader}
               ariaLabelForSelectAllCheckbox="Toggle selection for all items"
@@ -1550,7 +1550,7 @@ const EditableGrid = (props: Props) => {
               useReducedRowRenderer={props.useReducedRowRenderer}
               viewport={props.viewport}
             />
-          </MarqueeSelection>
+          {/* </MarqueeSelection> */}
         </ScrollablePane>
       </div>
       <Dialog hidden={!dialogContent} onDismiss={CloseRenameDialog} closeButtonAriaLabel="Close">
