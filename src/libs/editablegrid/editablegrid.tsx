@@ -1243,40 +1243,7 @@ const EditableGrid = (props: Props) => {
       setColumnFiltersRef(columnFilterArrTmp);
     }
 
-    if (props.enableRowEdit) {
-      columnConfigs.push({
-        key: 'action',
-        name: 'Actions',
-        ariaLabel: 'Actions',
-        fieldName: 'action',
-        isResizable: true,
-        minWidth: 50,
-        maxWidth: 50,
-        onRender: (item, index) => (
-          <div>
-            {activateCellEdit &&
-            activateCellEdit[Number(item['_grid_row_id_'])!] &&
-            activateCellEdit[Number(item['_grid_row_id_'])!]['isActivated'] ? (
-              <div>
-                <IconButton disabled={editMode} onClick={() => saveGrid(item)} iconProps={{ iconName: 'Save' }} title={'Save'}></IconButton>
-                {props.enableRowEditCancel ? (
-                  <IconButton
-                    disabled={editMode}
-                    onClick={() => CancelRowEditMode(item, Number(item['_grid_row_id_'])!)}
-                    iconProps={{ iconName: 'RemoveFilter' }}
-                    title={'Cancel'}></IconButton>
-                ) : null}
-              </div>
-            ) : (
-              <IconButton
-                onClick={() => ShowRowEditMode(item, Number(item['_grid_row_id_'])!, true)}
-                iconProps={{ iconName: 'Edit' }}
-                title={'Edit'}></IconButton>
-            )}
-          </div>
-        ),
-      });
-    }
+    
 
     return columnConfigs;
   };
