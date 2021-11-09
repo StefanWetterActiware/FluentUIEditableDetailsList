@@ -716,14 +716,6 @@ const EditableGrid = (props: Props) => {
           ShowMessageDialog('No Rows Selected', 'Please select some rows to perform this operation');
         }
         break;
-      case EditType.ColumnEdit:
-        if (selectedIndices.length > 0) {
-          ShowColumnUpdate();
-        } else {
-          ShowMessageDialog('No Rows Selected', 'Please select some rows to perform this operation');
-          return false;
-        }
-        break;
       case EditType.AddRow:
         AddRowsToGrid();
         //toggleHideDialog;
