@@ -470,6 +470,9 @@ const EditableGrid = (props: Props) => {
       activateCellEditTmp.push(item);
     });
 
+    if(column.onChange){
+      HandleColumnOnChange(activateCellEditTmp, row, column);
+  }
     // Custom: every time a value in a cell changed, we want to save
     saveData();
   };
