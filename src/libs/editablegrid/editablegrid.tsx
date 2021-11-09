@@ -421,9 +421,16 @@ const EditableGrid = (props: Props) => {
       defaultGridDataTmp.filter((x) => x._grid_row_id_ === item._grid_row_id_).map((x) => (x._grid_row_operation_ = Operation.Delete));
     });
 
-    console.log(defaultGridDataTmp);
+    let newGridData = defaultGridData.filter((x) => (x._grid_row_operation_ !== Operation.Delete))
+    
     setGridEditState(true);
-    SetGridItems(defaultGridDataTmp);
+    SetGridItems(newGridData);
+
+    // hier gibts es eigentlich keinen State sondern nur setter
+    setBackupDefaultGridData(newGridData);
+    setGridData(newGridData);
+
+    onGridSave()
   };
   /* #endregion */
 
@@ -1440,7 +1447,7 @@ const EditableGrid = (props: Props) => {
               selectionMode={props.selectionMode}
               layoutMode={DetailsListLayoutMode.fixedColumns}
               constrainMode={ConstrainMode.unconstrained}
-              // selection={_selection}
+              selection={_selection}
               setKey="none"
               onRenderDetailsHeader={onRenderDetailsHeader}
               ariaLabelForSelectAllCheckbox="Toggle selection for all items"
