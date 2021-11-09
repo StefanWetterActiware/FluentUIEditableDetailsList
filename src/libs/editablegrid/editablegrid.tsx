@@ -1044,6 +1044,7 @@ const EditableGrid = (props: Props) => {
                     <TextField
                       label={item.text}
                       ariaLabel="Value"
+                      name={column.key}
                       multiline={true}
                       rows={1}
                       styles={textFieldStyles}
@@ -1207,6 +1208,7 @@ const EditableGrid = (props: Props) => {
                       required={item.required}
                       label={item.text}
                       ariaLabel="Value"
+                      name={column.key}
                       styles={textFieldStyles}
                       onChange={(ev, text) => onCellValueChange(ev, text!, item, rowNum!, column.key, column)}
                       autoFocus={
