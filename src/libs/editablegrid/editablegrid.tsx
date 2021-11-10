@@ -200,6 +200,12 @@ const EditableGrid = (props: Props) => {
     }
   };
 
+  const onGridSaveAfterDelete = (data: any[]) => {
+    if (props.onGridSave) {
+      props.onGridSave(data);
+    }
+  }
+
   const UpdateGridEditStatus = (): void => {
     var gridEditStatus: boolean = false;
     var BreakException = {};
@@ -429,9 +435,15 @@ const EditableGrid = (props: Props) => {
     // hier gibts es eigentlich keinen State sondern nur setter
     setBackupDefaultGridData(newGridData);
     setGridData(newGridData);
+    setDefaultGridData(newGridData);
 
-    onGridSave()
+    /**
+     * Hier muss extra eine funktion her, da wenn onGridSave aufgerufen wird, wird der alte state genommen
+     * von defaultGridData -> state ist erst nach einem rerender neu gesetzt.
+     */
+    onGridSaveAfterDelete(newGridData);
   };
+
   /* #endregion */
 
   /* #region [Grid Cell Edit Functions] */
