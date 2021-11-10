@@ -25,6 +25,7 @@ export interface IColumnConfig extends IColumn {
     dropdownValues?: IDropdownOption[];
     pickerOptions?: IPickerOptions;
     disableSort?: boolean;
+    hidden?: boolean;
 };
 
 export interface IPickerOptions {
