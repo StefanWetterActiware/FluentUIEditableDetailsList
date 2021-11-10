@@ -57,6 +57,7 @@ import FilterCallout from './columnfiltercallout/filtercallout';
 import AddRowPanel from './addrowpanel';
 import { Props } from '../types/editabledetailslistprops';
 import PickerControl from './pickercontrol/picker';
+import { Checkbox } from '@fluentui/react';
 
 interface SortOptions {
   key: string;
@@ -157,7 +158,6 @@ const EditableGrid = (props: Props) => {
   React.useEffect(() => {
       ShowGridEditMode();
   }, [defaultGridData]); // eslint-disable-line react-hooks/exhaustive-deps
-
 
   React.useEffect(() => {
     EventEmitter.subscribe(EventType.onSearch, onSearchHandler);
@@ -539,7 +539,6 @@ const EditableGrid = (props: Props) => {
       activateCellEditTmp.push(item);
     });
 
-    
     if (column.onChange) {
       HandleColumnOnChange(activateCellEditTmp, row, column);
     }
@@ -597,7 +596,34 @@ const EditableGrid = (props: Props) => {
     }
 
     setActivateCellEdit(activateCellEditTmp);
+    saveData();
   };
+
+  const onCheckboxChanged = (
+    event: React.FormEvent<HTMLElement | HTMLInputElement>,
+    checked: boolean,
+    row: number,
+    column: IColumnConfig
+  ): void => {
+    setGridEditState(true);
+
+    let activateCellEditTmp: any[] = [];
+    activateCellEdit.forEach((item, index) => {
+      if (row === index) {
+        item.properties[column.key].value = checked;
+      }
+
+      activateCellEditTmp.push(item);
+    });
+
+    if (column.onChange) {
+      HandleColumnOnChange(activateCellEditTmp, row, column);
+    }
+
+    setActivateCellEdit(activateCellEditTmp);
+    saveData();
+  };
+
 
   const ChangeCellState = (key: string, rowNum: number, activateCurrentCell: boolean, activateCellEditArr: any[]): any[] => {
     let activateCellEditTmp: any[] = [];
@@ -1057,6 +1083,7 @@ const EditableGrid = (props: Props) => {
                     </span>
                   ) : (
                     <TextField
+                      hidden={column.hidden || false}
                       label={item.text}
                       ariaLabel="Value"
                       name={column.key}
@@ -1114,6 +1141,7 @@ const EditableGrid = (props: Props) => {
                       value={new Date(activateCellEdit[rowNum!].properties[column.key].value)}
                       onSelectDate={(date) => onCellDateChange(date, item, rowNum!, column)}
                       onDoubleClick={() => (!activateCellEdit[rowNum!].isActivated ? onDoubleClickEvent(column.key, rowNum!, false) : null)}
+                      hidden={column.hidden || false}
                     />
                   )}
                 </span>
@@ -1149,6 +1177,43 @@ const EditableGrid = (props: Props) => {
                       styles={dropdownStyles}
                       onChange={(ev, selectedItem) => onDropDownChange(ev, selectedItem, rowNum!, column)}
                       onDoubleClick={() => (!activateCellEdit[rowNum!].isActivated ? onDropdownDoubleClickEvent(column.key, rowNum!, false) : null)}
+                      hidden={column.hidden || false }
+                    />
+                  )}
+                </span>
+              );
+            case EditControlType.Checkbox:
+              return (
+                <span className={'row-' + rowNum! + '-col-' + index}>
+                  {!column.editable ||
+                  !(
+                    activateCellEdit &&
+                    activateCellEdit[rowNum!] &&
+                    activateCellEdit[rowNum!]['properties'][column.key] &&
+                    activateCellEdit[rowNum!]['properties'][column.key].activated
+                  ) ? (
+                    <span
+                      className={GetDynamicSpanStyles(column, item[column.key])}
+                      onClick={() =>
+                        props.enableCellEdit === true && column.editable === true && props.enableSingleClickCellEdit
+                          ? EditCellValue(column.key, rowNum!, true)
+                          : null
+                      }
+                      onDoubleClick={() =>
+                        props.enableCellEdit === true && column.editable === true && !props.enableSingleClickCellEdit
+                          ? EditCellValue(column.key, rowNum!, true)
+                          : null
+                      }>
+                      {item[column.key]}
+                    </span>
+                  ) : (
+                    <Checkbox
+                      label={''}
+                      checked={activateCellEdit[rowNum!]['properties'][column.key].value}
+                      // checked={item[column.key]}
+                      onChange={(e, item) => onCheckboxChanged(e!, item!, rowNum!, column)}
+                      disabled={column.hidden || false }
+                      //value = {item[column.key]}
                     />
                   )}
                 </span>
@@ -1266,8 +1331,6 @@ const EditableGrid = (props: Props) => {
     if (getColumnFiltersRef().length === 0) {
       setColumnFiltersRef(columnFilterArrTmp);
     }
-
-    
 
     return columnConfigs;
   };
