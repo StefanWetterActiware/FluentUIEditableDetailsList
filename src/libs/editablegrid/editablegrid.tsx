@@ -73,7 +73,7 @@ const EditableGrid = (props: Props) => {
   const dismissPanelForAdd = React.useCallback(() => setIsOpenForAdd(false), []);
   const [, setGridData] = useState<any[]>([]);
   const [defaultGridData, setDefaultGridData] = useState<any[]>([]);
-  const [/*backupDefaultGridData*/, setBackupDefaultGridData] = useState<any[]>([]);
+  const [, /*backupDefaultGridData*/ setBackupDefaultGridData] = useState<any[]>([]);
   const [activateCellEdit, setActivateCellEdit] = useState<any[]>([]);
   const [, setSelectionDetails] = useState('');
   const [selectedItems, setSelectedItems] = useState<any[]>();
@@ -106,7 +106,9 @@ const EditableGrid = (props: Props) => {
       var selDetails = _selection.getSelection();
       if (selDetails.length > 0) {
         var res = false;
-        selDetails.forEach((item) => {res = res || ((props.undeleteableKeys || []).indexOf((item as any)['NameExtern']) >= 0)})
+        selDetails.forEach((item) => {
+          res = res || (props.undeleteableKeys || []).indexOf((item as any)['NameExtern']) >= 0;
+        });
         setUndeletableRowSelected(res);
       }
     },
@@ -156,7 +158,7 @@ const EditableGrid = (props: Props) => {
 
   // Custom - Ole & Alex
   React.useEffect(() => {
-      ShowGridEditMode();
+    ShowGridEditMode();
   }, [defaultGridData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
@@ -176,13 +178,11 @@ const EditableGrid = (props: Props) => {
     }
   }, [props.items]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
   useEffect(() => {
     UpdateGridEditStatus();
   }, [activateCellEdit]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-  }, [isGridInEdit]);
+  useEffect(() => {}, [isGridInEdit]);
 
   useEffect(() => {
     SetFilteredGridData(getFilterStoreRef());
@@ -204,7 +204,7 @@ const EditableGrid = (props: Props) => {
     if (props.onGridSave) {
       props.onGridSave(data);
     }
-  }
+  };
 
   const UpdateGridEditStatus = (): void => {
     var gridEditStatus: boolean = false;
@@ -427,8 +427,8 @@ const EditableGrid = (props: Props) => {
       defaultGridDataTmp.filter((x) => x._grid_row_id_ === item._grid_row_id_).map((x) => (x._grid_row_operation_ = Operation.Delete));
     });
 
-    let newGridData = defaultGridData.filter((x) => (x._grid_row_operation_ !== Operation.Delete))
-    
+    let newGridData = defaultGridData.filter((x) => x._grid_row_operation_ !== Operation.Delete);
+
     setGridEditState(true);
     SetGridItems(newGridData);
 
@@ -482,9 +482,9 @@ const EditableGrid = (props: Props) => {
       activateCellEditTmp.push(item);
     });
 
-    if(column.onChange){
+    if (column.onChange) {
       HandleColumnOnChange(activateCellEditTmp, row, column);
-  }
+    }
     // Custom: every time a value in a cell changed, we want to save
     saveData();
   };
@@ -553,7 +553,7 @@ const EditableGrid = (props: Props) => {
     });
     setDefaultGridData(defaultGridDataTmp);
     onGridSave();
-  }
+  };
 
   const onCellPickerTagListChanged = (cellPickerTagList: ITag[] | undefined, row: number, column: IColumnConfig): void => {
     setGridEditState(true);
@@ -599,12 +599,7 @@ const EditableGrid = (props: Props) => {
     saveData();
   };
 
-  const onCheckboxChanged = (
-    event: React.FormEvent<HTMLElement | HTMLInputElement>,
-    checked: boolean,
-    row: number,
-    column: IColumnConfig
-  ): void => {
+  const onCheckboxChanged = (event: React.FormEvent<HTMLElement | HTMLInputElement>, checked: boolean, row: number, column: IColumnConfig): void => {
     setGridEditState(true);
 
     let activateCellEditTmp: any[] = [];
@@ -623,7 +618,6 @@ const EditableGrid = (props: Props) => {
     setActivateCellEdit(activateCellEditTmp);
     saveData();
   };
-
 
   const ChangeCellState = (key: string, rowNum: number, activateCurrentCell: boolean, activateCellEditArr: any[]): any[] => {
     let activateCellEditTmp: any[] = [];
@@ -733,7 +727,7 @@ const EditableGrid = (props: Props) => {
   const ShowGridEditMode = (): void => {
     // TODO: activate editmode with props?
     // TODO: brauchen wir den ganzen kram hier überhaupt noch?
-    var newEditModeValue = true;//!editMode;
+    var newEditModeValue = true; //!editMode;
     if (newEditModeValue) {
       setCancellableRows(defaultGridData);
     } else {
@@ -1177,7 +1171,7 @@ const EditableGrid = (props: Props) => {
                       styles={dropdownStyles}
                       onChange={(ev, selectedItem) => onDropDownChange(ev, selectedItem, rowNum!, column)}
                       onDoubleClick={() => (!activateCellEdit[rowNum!].isActivated ? onDropdownDoubleClickEvent(column.key, rowNum!, false) : null)}
-                      hidden={column.hidden || false }
+                      hidden={column.hidden || false}
                     />
                   )}
                 </span>
@@ -1212,7 +1206,7 @@ const EditableGrid = (props: Props) => {
                       checked={activateCellEdit[rowNum!]['properties'][column.key].value}
                       // checked={item[column.key]}
                       onChange={(e, item) => onCheckboxChanged(e!, item!, rowNum!, column)}
-                      disabled={column.hidden || false }
+                      disabled={column.hidden || false}
                       //value = {item[column.key]}
                     />
                   )}
@@ -1268,7 +1262,8 @@ const EditableGrid = (props: Props) => {
                     activateCellEdit[rowNum!] &&
                     activateCellEdit[rowNum!]['properties'][column.key] &&
                     activateCellEdit[rowNum!]['properties'][column.key].activated
-                  ) || (column.key === 'NameExtern' && ((props.undeleteableKeys || []).indexOf(item['NameExtern']) >= 0)) ? (
+                  ) ||
+                  (column.key === 'NameExtern' && (props.undeleteableKeys || []).indexOf(item['NameExtern']) >= 0) ? (
                     <span
                       className={GetDynamicSpanStyles(column, item[column.key])}
                       onClick={() =>
@@ -1510,80 +1505,80 @@ const EditableGrid = (props: Props) => {
         })}>
         <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
           {/* <MarqueeSelection selection={_selection}> */}
-            <DetailsList
-              compact={true}
-              items={
-                defaultGridData.length > 0
-                  ? defaultGridData.filter(
-                      (x) =>
-                        x._grid_row_operation_ !== Operation.Delete &&
-                        x._is_filtered_in_ === true &&
-                        x._is_filtered_in_grid_search_ === true &&
-                        x._is_filtered_in_column_filter_ === true
-                    )
-                  : []
-              }
-              columns={GridColumns}
-              selectionMode={props.selectionMode}
-              layoutMode={DetailsListLayoutMode.fixedColumns}
-              constrainMode={ConstrainMode.unconstrained}
-              selection={_selection}
-              setKey="none"
-              onRenderDetailsHeader={onRenderDetailsHeader}
-              ariaLabelForSelectAllCheckbox="Toggle selection for all items"
-              ariaLabelForSelectionColumn="Toggle selection"
-              checkButtonAriaLabel="Row checkbox"
-              ariaLabel={props.ariaLabel}
-              ariaLabelForGrid={props.ariaLabelForGrid}
-              ariaLabelForListHeader={props.ariaLabelForListHeader}
-              cellStyleProps={props.cellStyleProps}
-              checkboxCellClassName={props.checkboxCellClassName}
-              checkboxVisibility={props.checkboxVisibility}
-              className={props.className}
-              columnReorderOptions={props.columnReorderOptions}
-              componentRef={props.componentRef}
-              disableSelectionZone={props.disableSelectionZone}
-              dragDropEvents={props.dragDropEvents}
-              enableUpdateAnimations={props.enableUpdateAnimations}
-              enterModalSelectionOnTouch={props.enterModalSelectionOnTouch}
-              getCellValueKey={props.getCellValueKey}
-              getGroupHeight={props.getGroupHeight}
-              getKey={props.getKey}
-              getRowAriaDescribedBy={props.getRowAriaDescribedBy}
-              getRowAriaLabel={props.getRowAriaLabel}
-              groupProps={props.groupProps}
-              groups={props.groups}
-              indentWidth={props.indentWidth}
-              initialFocusedIndex={props.initialFocusedIndex}
-              isHeaderVisible={props.isHeaderVisible}
-              isPlaceholderData={props.isPlaceholderData}
-              listProps={props.listProps}
-              minimumPixelsForDrag={props.minimumPixelsForDrag}
-              onActiveItemChanged={props.onActiveItemChanged}
-              onColumnHeaderClick={props.onColumnHeaderClick}
-              onColumnHeaderContextMenu={props.onColumnHeaderContextMenu}
-              onColumnResize={props.onColumnResize}
-              onDidUpdate={props.onDidUpdate}
-              onItemContextMenu={props.onItemContextMenu}
-              onItemInvoked={props.onItemInvoked}
-              onRenderCheckbox={props.onRenderCheckbox}
-              onRenderDetailsFooter={props.onRenderDetailsFooter}
-              onRenderItemColumn={props.onRenderItemColumn}
-              onRenderMissingItem={props.onRenderMissingItem}
-              onRenderRow={props.onRenderRow}
-              onRowDidMount={props.onRowDidMount}
-              onRowWillUnmount={props.onRowWillUnmount}
-              onShouldVirtualize={props.onShouldVirtualize}
-              rowElementEventMap={props.rowElementEventMap}
-              selectionPreservedOnEmptyClick={props.selectionPreservedOnEmptyClick}
-              selectionZoneProps={props.selectionZoneProps}
-              shouldApplyApplicationRole={props.shouldApplyApplicationRole}
-              styles={props.styles}
-              useFastIcons={props.useFastIcons}
-              usePageCache={props.usePageCache}
-              useReducedRowRenderer={props.useReducedRowRenderer}
-              viewport={props.viewport}
-            />
+          <DetailsList
+            compact={true}
+            items={
+              defaultGridData.length > 0
+                ? defaultGridData.filter(
+                    (x) =>
+                      x._grid_row_operation_ !== Operation.Delete &&
+                      x._is_filtered_in_ === true &&
+                      x._is_filtered_in_grid_search_ === true &&
+                      x._is_filtered_in_column_filter_ === true
+                  )
+                : []
+            }
+            columns={GridColumns}
+            selectionMode={props.selectionMode}
+            layoutMode={DetailsListLayoutMode.fixedColumns}
+            constrainMode={ConstrainMode.unconstrained}
+            selection={_selection}
+            setKey="none"
+            onRenderDetailsHeader={onRenderDetailsHeader}
+            ariaLabelForSelectAllCheckbox="Toggle selection for all items"
+            ariaLabelForSelectionColumn="Toggle selection"
+            checkButtonAriaLabel="Row checkbox"
+            ariaLabel={props.ariaLabel}
+            ariaLabelForGrid={props.ariaLabelForGrid}
+            ariaLabelForListHeader={props.ariaLabelForListHeader}
+            cellStyleProps={props.cellStyleProps}
+            checkboxCellClassName={props.checkboxCellClassName}
+            checkboxVisibility={props.checkboxVisibility}
+            className={props.className}
+            columnReorderOptions={props.columnReorderOptions}
+            componentRef={props.componentRef}
+            disableSelectionZone={props.disableSelectionZone}
+            dragDropEvents={props.dragDropEvents}
+            enableUpdateAnimations={props.enableUpdateAnimations}
+            enterModalSelectionOnTouch={props.enterModalSelectionOnTouch}
+            getCellValueKey={props.getCellValueKey}
+            getGroupHeight={props.getGroupHeight}
+            getKey={props.getKey}
+            getRowAriaDescribedBy={props.getRowAriaDescribedBy}
+            getRowAriaLabel={props.getRowAriaLabel}
+            groupProps={props.groupProps}
+            groups={props.groups}
+            indentWidth={props.indentWidth}
+            initialFocusedIndex={props.initialFocusedIndex}
+            isHeaderVisible={props.isHeaderVisible}
+            isPlaceholderData={props.isPlaceholderData}
+            listProps={props.listProps}
+            minimumPixelsForDrag={props.minimumPixelsForDrag}
+            onActiveItemChanged={props.onActiveItemChanged}
+            onColumnHeaderClick={props.onColumnHeaderClick}
+            onColumnHeaderContextMenu={props.onColumnHeaderContextMenu}
+            onColumnResize={props.onColumnResize}
+            onDidUpdate={props.onDidUpdate}
+            onItemContextMenu={props.onItemContextMenu}
+            onItemInvoked={props.onItemInvoked}
+            onRenderCheckbox={props.onRenderCheckbox}
+            onRenderDetailsFooter={props.onRenderDetailsFooter}
+            onRenderItemColumn={props.onRenderItemColumn}
+            onRenderMissingItem={props.onRenderMissingItem}
+            onRenderRow={props.onRenderRow}
+            onRowDidMount={props.onRowDidMount}
+            onRowWillUnmount={props.onRowWillUnmount}
+            onShouldVirtualize={props.onShouldVirtualize}
+            rowElementEventMap={props.rowElementEventMap}
+            selectionPreservedOnEmptyClick={props.selectionPreservedOnEmptyClick}
+            selectionZoneProps={props.selectionZoneProps}
+            shouldApplyApplicationRole={props.shouldApplyApplicationRole}
+            styles={props.styles}
+            useFastIcons={props.useFastIcons}
+            usePageCache={props.usePageCache}
+            useReducedRowRenderer={props.useReducedRowRenderer}
+            viewport={props.viewport}
+          />
           {/* </MarqueeSelection> */}
         </ScrollablePane>
       </div>

@@ -2,45 +2,45 @@
 // Licensed under the MIT License.
 
 import { ConstrainMode, IColumn, IDetailsHeaderProps } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList.types';
-import { IDropdownOption } from "office-ui-fabric-react";
-import { CalculationType } from "./calculationtype";
+import { IDropdownOption } from 'office-ui-fabric-react';
+import { CalculationType } from './calculationtype';
 import { ICellStyleRulesType } from './cellstyleruletype';
-import { EditControlType } from "./editcontroltype";
+import { EditControlType } from './editcontroltype';
 
 export interface IColumnConfig extends IColumn {
-    key: string;
-    text: string;
-    editable?: boolean;
-    dataType?: string;
-    isResizable?: boolean;
-    includeColumnInExport?: boolean;
-    includeColumnInSearch?: boolean;
-    inputType?: EditControlType;
-    calculatedColumn?: { type: CalculationType, fields: any[]  };
-    required?: boolean;
-    onChange?: any;
-    maxLength?: number;
-    applyColumnFilter?: boolean;
-    cellStyleRule?: ICellStyleRulesType;
-    dropdownValues?: IDropdownOption[];
-    pickerOptions?: IPickerOptions;
-    disableSort?: boolean;
-    hidden?: boolean;
-};
+  key: string;
+  text: string;
+  editable?: boolean;
+  dataType?: string;
+  isResizable?: boolean;
+  includeColumnInExport?: boolean;
+  includeColumnInSearch?: boolean;
+  inputType?: EditControlType;
+  calculatedColumn?: { type: CalculationType; fields: any[] };
+  required?: boolean;
+  onChange?: any;
+  maxLength?: number;
+  applyColumnFilter?: boolean;
+  cellStyleRule?: ICellStyleRulesType;
+  dropdownValues?: IDropdownOption[];
+  pickerOptions?: IPickerOptions;
+  disableSort?: boolean;
+  hidden?: boolean;
+}
 
 export interface IPickerOptions {
-    tagsLimit?: number;
-    minCharLimitForSuggestions?: number;
-    pickerTags: string[];
-    pickerDescriptionOptions?: IPickerDescriptionOption;
+  tagsLimit?: number;
+  minCharLimitForSuggestions?: number;
+  pickerTags: string[];
+  pickerDescriptionOptions?: IPickerDescriptionOption;
 }
 
 export interface IPickerDescriptionOption {
-    enabled: boolean;
-    values: IPickerTagDescription[];
+  enabled: boolean;
+  values: IPickerTagDescription[];
 }
 
 export interface IPickerTagDescription {
-    key: string;
-    description: string;
+  key: string;
+  description: string;
 }
