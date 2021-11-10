@@ -1015,10 +1015,12 @@ const EditableGrid = (props: Props) => {
     let columnFilterArrTmp: IGridColumnFilter[] = [];
 
     props.columns.forEach((column, index) => {
+
       var colHeaderClassName = 'id-' + props.id + '-col-' + index;
       var colKey = 'col' + index;
       var isDataTypeSupportedForFilter: boolean = isColumnDataTypeSupportedForFilter(column.dataType);
 
+      if (!column.hidden){
       columnConfigs.push({
         key: colKey,
         name: column.text,
@@ -1306,6 +1308,7 @@ const EditableGrid = (props: Props) => {
           }
         },
       });
+    }
 
       if (getColumnFiltersRef().length === 0) {
         columnFilterArrTmp.push({
