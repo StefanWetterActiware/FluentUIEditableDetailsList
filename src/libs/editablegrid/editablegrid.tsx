@@ -943,6 +943,13 @@ const EditableGrid = (props: Props) => {
     );
   };
 
+  const disable = (item: any, colKey: string) : boolean => {
+    if (item.Options && item.Options[colKey + '_grid_row_checkbox_disabled_']){
+      return item.Options[colKey + '_grid_row_checkbox_disabled_'];
+    }
+      return false;
+  }
+
   const GetUniqueColumnValues = (column: IColumn, prevFilters: IFilterItem[]): IFilterItem[] => {
     var uniqueVals: string[] = [
       ...new Set(
@@ -1204,10 +1211,10 @@ const EditableGrid = (props: Props) => {
                     ) : (
                       <Checkbox
                         label={''}
-                        checked={activateCellEdit[rowNum!]['properties'][column.key].value}
-                        // checked={item[column.key]}
+                        // checked={activateCellEdit[rowNum!]['properties'][column.key].value}
+                        checked={item[column.key]}
                         onChange={(e, item) => onCheckboxChanged(e!, item!, rowNum!, column)}
-                        disabled={column.hidden || false}
+                        disabled={disable(item, column.key)}
                         //value = {item[column.key]}
                       />
                     )}
