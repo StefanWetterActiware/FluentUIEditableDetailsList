@@ -58,6 +58,7 @@ import AddRowPanel from './addrowpanel';
 import { Props } from '../types/editabledetailslistprops';
 import PickerControl from './pickercontrol/picker';
 import { Checkbox } from '@fluentui/react';
+import {IMap} from './../types/options_type';
 
 interface SortOptions {
   key: string;
@@ -348,6 +349,8 @@ const EditableGrid = (props: Props) => {
     } else {
       props.columns.forEach((item, index) => {
         exisitingRowObj[item.key] = '';
+        // TODO: Dynmaisch aus der Column config
+        exisitingRowObj["Gutschrift"] = '';
       });
     }
 
@@ -365,6 +368,8 @@ const EditableGrid = (props: Props) => {
       obj._is_filtered_in_ = true;
       obj._is_filtered_in_grid_search_ = true;
       obj._is_filtered_in_column_filter_ = true;
+      obj.Options = {} as IMap<any>;
+
       addedRows.push(obj);
     }
 
@@ -622,7 +627,18 @@ const EditableGrid = (props: Props) => {
   const ChangeCellState = (key: string, rowNum: number, activateCurrentCell: boolean, activateCellEditArr: any[]): any[] => {
     let activateCellEditTmp: any[] = [];
     activateCellEditTmp = [...activateCellEditArr];
-    activateCellEditTmp[rowNum]['properties'][key]['activated'] = activateCurrentCell;
+    console.log("cellState changed");
+    console.log(activateCellEditTmp);
+    console.log("Key: " + key);
+    console.log("rowNum: " + rowNum);
+
+    if (activateCellEditTmp[rowNum]['properties'][key]){
+      activateCellEditTmp[rowNum]['properties'][key]['activated'] = activateCurrentCell;
+    } else {
+
+      console.log(activateCellEditTmp[rowNum]['properties'][key])
+      debugger;
+    }
     return activateCellEditTmp;
   };
 
