@@ -58,7 +58,7 @@ import AddRowPanel from './addrowpanel';
 import { Props } from '../types/editabledetailslistprops';
 import PickerControl from './pickercontrol/picker';
 import { Checkbox } from '@fluentui/react';
-import {IMap} from './../types/options_type';
+import { IMap } from './../types/options_type';
 
 interface SortOptions {
   key: string;
@@ -115,6 +115,18 @@ const EditableGrid = (props: Props) => {
     },
   });
 
+  const sortGrid = (): any[] => {
+    var sortedGrid: any[] = [];
+    if (defaultGridData.indexOf(props.undeleteableKeys) !== -1) {
+      sortedGrid.push(defaultGridData.indexOf(props.undeleteableKeys));
+      sortedGrid.push(defaultGridData.slice(defaultGridData.indexOf(props.undeleteableKeys)));
+      setDefaultGridData(sortGrid);
+    }
+
+    console.log('DefaultGridData: ' + defaultGridData);
+    return defaultGridData;
+  };
+
   const onSearchHandler = (event: any) => {
     var gridDataTmp: any[];
     if (event && event.target) {
@@ -159,6 +171,7 @@ const EditableGrid = (props: Props) => {
 
   // Custom - Ole & Alex
   React.useEffect(() => {
+    sortGrid();
     ShowGridEditMode();
   }, [defaultGridData]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -350,7 +363,7 @@ const EditableGrid = (props: Props) => {
       props.columns.forEach((item, index) => {
         exisitingRowObj[item.key] = '';
         // TODO: Dynmaisch aus der Column config
-        exisitingRowObj["Gutschrift"] = '';
+        exisitingRowObj['Gutschrift'] = '';
       });
     }
 
@@ -627,16 +640,15 @@ const EditableGrid = (props: Props) => {
   const ChangeCellState = (key: string, rowNum: number, activateCurrentCell: boolean, activateCellEditArr: any[]): any[] => {
     let activateCellEditTmp: any[] = [];
     activateCellEditTmp = [...activateCellEditArr];
-    console.log("cellState changed");
+    console.log('cellState changed');
     console.log(activateCellEditTmp);
-    console.log("Key: " + key);
-    console.log("rowNum: " + rowNum);
+    console.log('Key: ' + key);
+    console.log('rowNum: ' + rowNum);
 
-    if (activateCellEditTmp[rowNum]['properties'][key]){
+    if (activateCellEditTmp[rowNum]['properties'][key]) {
       activateCellEditTmp[rowNum]['properties'][key]['activated'] = activateCurrentCell;
     } else {
-
-      console.log(activateCellEditTmp[rowNum]['properties'][key])
+      console.log(activateCellEditTmp[rowNum]['properties'][key]);
       debugger;
     }
     return activateCellEditTmp;
@@ -959,12 +971,12 @@ const EditableGrid = (props: Props) => {
     );
   };
 
-  const disable = (item: any, colKey: string) : boolean => {
-    if (item.Options && item.Options[colKey + '_grid_row_checkbox_disabled_']){
+  const disable = (item: any, colKey: string): boolean => {
+    if (item.Options && item.Options[colKey + '_grid_row_checkbox_disabled_']) {
       return item.Options[colKey + '_grid_row_checkbox_disabled_'];
     }
-      return false;
-  }
+    return false;
+  };
 
   const GetUniqueColumnValues = (column: IColumn, prevFilters: IFilterItem[]): IFilterItem[] => {
     var uniqueVals: string[] = [
