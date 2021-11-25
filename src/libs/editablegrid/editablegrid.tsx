@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { DetailsList } from 'office-ui-fabric-react/lib/components/DetailsList/DetailsList';
 import { CommandBar, ICommandBarItemProps } from 'office-ui-fabric-react/lib/CommandBar';
 import { DetailsListLayoutMode, Selection, IDetailsColumnRenderTooltipProps } from 'office-ui-fabric-react/lib/DetailsList';
-import { IconButton } from 'office-ui-fabric-react/lib/components/Button/IconButton/IconButton';
 import {
   Panel,
   PanelType,
@@ -39,7 +38,6 @@ import {
   InitializeInternalGridEditStructure,
   ResetGridRowID,
   ShallowCopyDefaultGridToEditGrid,
-  ShallowCopyEditGridToDefaultGrid,
 } from './editablegridinitialize';
 import { EditControlType } from '../types/editcontroltype';
 import { dateToISOLikeButLocal, DayPickerStrings } from './datepickerconfig';
@@ -78,7 +76,7 @@ const EditableGrid = (props: Props) => {
   const [activateCellEdit, setActivateCellEdit] = useState<any[]>([]);
   const [, setSelectionDetails] = useState('');
   const [selectedItems, setSelectedItems] = useState<any[]>();
-  const [cancellableRows, setCancellableRows] = useState<any[]>([]);
+  const [, setCancellableRows] = useState<any[]>([]);
   const [, setSelectionCount] = useState(0);
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
   const [isGridInEdit, setIsGridInEdit] = React.useState(false);
@@ -335,10 +333,6 @@ const EditableGrid = (props: Props) => {
 
   const CloseColumnUpdateDialog = (): void => {
     setIsUpdateColumnClicked(false);
-  };
-
-  const ShowColumnUpdate = (): void => {
-    setIsUpdateColumnClicked((s) => !s);
   };
   /* #endregion */
 
@@ -709,46 +703,6 @@ const EditableGrid = (props: Props) => {
 
     return defaultGridDataTmp;
   };
-
-  const ShowRowEditMode = (item: any, rowNum: number, enableTextField: boolean): void => {
-    if (enableTextField) {
-      setCancellableRows((cancellableRows) => [...cancellableRows, item]);
-    } else {
-      setCancellableRows(cancellableRows.filter((row) => row._grid_row_id_ !== item._grid_row_id_));
-    }
-
-    let activateCellEditTmp: any[] = ChangeRowState(item, rowNum, enableTextField);
-
-    setActivateCellEdit(activateCellEditTmp);
-
-    if (!enableTextField) {
-      let defaultGridDataTmp: any[] = SaveRowValue(item, rowNum, defaultGridData);
-      setDefaultGridData(defaultGridDataTmp);
-    }
-  };
-
-  const CancelRowEditMode = (item: any, rowNum: number): void => {
-    let activateCellEditTmp: any[] = ChangeRowState(item, rowNum, false);
-    activateCellEditTmp = RevertRowEditValues(rowNum, activateCellEditTmp);
-
-    setActivateCellEdit(activateCellEditTmp);
-    setDefaultGridData(ShallowCopyEditGridToDefaultGrid(defaultGridData, activateCellEditTmp));
-  };
-
-  const RevertRowEditValues = (rowNum: number, activateCellEditArr: any): any[] => {
-    var activateCellEditTmp = [...activateCellEditArr];
-    var baseRow = cancellableRows.filter((x) => x._grid_row_id_ === rowNum)[0];
-    var objectKeys = Object.keys(baseRow);
-    var targetRow = activateCellEditTmp.filter((x) => x.properties['_grid_row_id_'].value === rowNum)[0];
-    objectKeys.forEach((objKey) => {
-      if ([objKey !== '_grid_row_id_']) {
-        targetRow['properties'][objKey]['value'] = baseRow[objKey];
-      }
-    });
-
-    setCancellableRows(cancellableRows.filter((row) => row._grid_row_id_ !== rowNum));
-    return activateCellEditTmp;
-  };
   /* #endregion */
 
   /* #region [Grid Edit Mode Functions] */
@@ -1039,11 +993,6 @@ const EditableGrid = (props: Props) => {
   };
 
   /* #endregion [Grid Column Filter] */
-
-  const saveGrid = (item: any): void => {
-    ShowRowEditMode(item, Number(item['_grid_row_id_'])!, false);
-    onGridSave();
-  };
 
   const CreateColumnConfigs = (): IColumn[] => {
     let columnConfigs: IColumn[] = [];
