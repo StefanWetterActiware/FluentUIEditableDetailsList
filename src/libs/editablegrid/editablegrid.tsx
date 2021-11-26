@@ -120,8 +120,6 @@ const EditableGrid = (props: Props) => {
       sortedGrid.push(defaultGridData.slice(defaultGridData.indexOf(props.undeleteableKeys)));
       setDefaultGridData(sortGrid);
     }
-
-    console.log('DefaultGridData: ' + defaultGridData);
     return defaultGridData;
   };
 
@@ -634,10 +632,6 @@ const EditableGrid = (props: Props) => {
   const ChangeCellState = (key: string, rowNum: number, activateCurrentCell: boolean, activateCellEditArr: any[]): any[] => {
     let activateCellEditTmp: any[] = [];
     activateCellEditTmp = [...activateCellEditArr];
-    console.log('cellState changed');
-    console.log(activateCellEditTmp);
-    console.log('Key: ' + key);
-    console.log('rowNum: ' + rowNum);
 
     if (activateCellEditTmp[rowNum]['properties'][key]) {
       activateCellEditTmp[rowNum]['properties'][key]['activated'] = activateCurrentCell;
