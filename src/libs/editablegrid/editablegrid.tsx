@@ -926,10 +926,10 @@ const EditableGrid = (props: Props) => {
   };
 
   const disable = (item: any, colKey: string): boolean => {
-    if (item.Options && item.Options[colKey + '_grid_row_checkbox_disabled_']) {
+    if (item.Options && item.Options[colKey + '_grid_row_checkbox_disabled_'] !== undefined) {
       return item.Options[colKey + '_grid_row_checkbox_disabled_'];
     }
-    return false;
+    return true;
   };
 
   const GetUniqueColumnValues = (column: IColumn, prevFilters: IFilterItem[]): IFilterItem[] => {
