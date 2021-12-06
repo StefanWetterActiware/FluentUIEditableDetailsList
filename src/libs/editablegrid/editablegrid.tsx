@@ -1483,7 +1483,7 @@ const EditableGrid = (props: Props) => {
           position: 'relative',
           backgroundColor: 'white',
         })}>
-        <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
+        {/* <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}> */}
           {/* <MarqueeSelection selection={_selection}> */}
           <DetailsList
             compact={true}
@@ -1560,7 +1560,7 @@ const EditableGrid = (props: Props) => {
             viewport={props.viewport}
           />
           {/* </MarqueeSelection> */}
-        </ScrollablePane>
+        {/* </ScrollablePane> */}
       </div>
       <Dialog hidden={!dialogContent} onDismiss={CloseRenameDialog} closeButtonAriaLabel="Close">
         {dialogContent}
