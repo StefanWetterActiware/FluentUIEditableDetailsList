@@ -84,7 +84,6 @@ export const SampleDataColumnConfig: IColumnConfig[] = [
       ],
     },
     {
-      // TODO: In dieser Spalte darf keins oder nur genau ein Feld angehakt werden. Optimalerweise wenn ein Haken gesetzt wird alle anderen einfach rausnehmen. Darf wie 'Gutschrift' nur für numerische Felder aktiv sein
       key: 'DebitCreditCodeSource',
       name: 'DebitCreditCodeSource',
       text: 'DebitCreditCodeSource',
