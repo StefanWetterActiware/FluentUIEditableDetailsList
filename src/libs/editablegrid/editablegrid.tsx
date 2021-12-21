@@ -15,8 +15,6 @@ import {
   IDropdownOption,
   Dialog,
   DatePicker,
-  ScrollablePane,
-  ScrollbarVisibility,
   Sticky,
   StickyPositionType,
   IRenderFunction,
