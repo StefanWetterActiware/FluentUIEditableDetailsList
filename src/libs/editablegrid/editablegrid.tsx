@@ -26,6 +26,9 @@ import {
   ITag,
   IBasePickerSuggestionsProps,
   IInputProps,
+  MarqueeSelection,
+  ScrollablePane,
+  ScrollbarVisibility,
 } from 'office-ui-fabric-react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { IColumnConfig } from '../types/columnconfigtype';
@@ -1420,7 +1423,7 @@ const EditableGrid = (props: Props) => {
       <TooltipHost {...tooltipHostProps} />
     );
     return (
-      <Sticky stickyPosition={StickyPositionType.Header} isScrollSynced>
+      <Sticky stickyPosition={StickyPositionType.Header}>
         {defaultRender!({
           ...props,
           onRenderColumnHeaderTooltip,
@@ -1469,7 +1472,7 @@ const EditableGrid = (props: Props) => {
       ) : null}
 
       {props.enableCommandBar === undefined || props.enableCommandBar === true ? (
-        <CommandBar items={CommandBarItemProps} ariaLabel="Command Bar" farItems={CommandBarFarItemProps} />
+        <CommandBar items={CommandBarItemProps} ariaLabel="Command Bar" farItems={CommandBarFarItemProps}  />
       ) : null}
       {showSpinner ? <Spinner label="Updating..." ariaLive="assertive" labelPosition="right" size={SpinnerSize.large} /> : null}
 
@@ -1481,8 +1484,8 @@ const EditableGrid = (props: Props) => {
           position: 'relative',
           backgroundColor: 'white',
         })}>
-        {/* <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}> */}
-          {/* <MarqueeSelection selection={_selection}> */}
+        <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
+          <MarqueeSelection selection={_selection}>
           <DetailsList
             compact={true}
             items={
@@ -1557,8 +1560,8 @@ const EditableGrid = (props: Props) => {
             useReducedRowRenderer={props.useReducedRowRenderer}
             viewport={props.viewport}
           />
-          {/* </MarqueeSelection> */}
-        {/* </ScrollablePane> */}
+          </MarqueeSelection>
+        </ScrollablePane>
       </div>
       <Dialog hidden={!dialogContent} onDismiss={CloseRenameDialog} closeButtonAriaLabel="Close">
         {dialogContent}
