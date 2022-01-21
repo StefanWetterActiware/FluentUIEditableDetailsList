@@ -1479,12 +1479,12 @@ const EditableGrid = (props: Props) => {
       {showFilterCallout && filterCalloutComponent}
       <div
         className={mergeStyles({
-          height: props.height !== null ? props.height : '70vh',
+          height: props.height !== null ? props.height : '120vh',
           width: props.width !== null ? props.width : '130vh',
           position: 'relative',
           backgroundColor: 'white',
         })}>
-        <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto}>
+        <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto} style={{width: '100%'}} >
           <MarqueeSelection selection={_selection}>
           <DetailsList
             compact={true}
