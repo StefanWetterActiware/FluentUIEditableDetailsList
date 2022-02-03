@@ -1370,29 +1370,29 @@ const EditableGrid = (props: Props) => {
     return commandBarItems;
   };
 
-  const CreateCommandBarFarItemProps = (): ICommandBarItemProps[] => {
-    let commandBarItems: ICommandBarItemProps[] = [];
-    if (
-      props.enableUnsavedEditIndicator &&
-      (props.enableRowEdit || props.enableCellEdit || props.enableBulkEdit || props.enableColumnEdit || props.enableTextFieldEditMode)
-    ) {
-      commandBarItems.push({
-        key: 'info',
-        text: isGridStateEdited ? "Grid has unsaved data. Click on 'Submit' to save" : '',
-        // This needs an ariaLabel since it's icon-only
-        ariaLabel: 'Info',
-        disabled: !isGridStateEdited,
-        iconOnly: true,
-        iconProps: { iconName: 'InfoSolid' },
-      });
-    }
+  // const CreateCommandBarFarItemProps = (): ICommandBarItemProps[] => {
+  //   let commandBarItems: ICommandBarItemProps[] = [];
+  //   if (
+  //     props.enableUnsavedEditIndicator &&
+  //     (props.enableRowEdit || props.enableCellEdit || props.enableBulkEdit || props.enableColumnEdit || props.enableTextFieldEditMode)
+  //   ) {
+  //     commandBarItems.push({
+  //       key: 'info',
+  //       text: isGridStateEdited ? "" : '',
+  //       // This needs an ariaLabel since it's icon-only
+  //       ariaLabel: 'Info',
+  //       disabled: !isGridStateEdited,
+  //       iconOnly: true,
+  //       iconProps: { iconName: 'InfoSolid' },
+  //     });
+  //   }
 
-    return commandBarItems;
-  };
+  //   return commandBarItems;
+  // };
 
   const GridColumns = CreateColumnConfigs();
   const CommandBarItemProps = CreateCommandBarItemProps();
-  const CommandBarFarItemProps = CreateCommandBarFarItemProps();
+  // const CommandBarFarItemProps = CreateCommandBarFarItemProps();
   function _getSelectionDetails(): string {
     const count = _selection.getSelectedCount();
     setSelectionCount(count);
@@ -1471,9 +1471,9 @@ const EditableGrid = (props: Props) => {
         />
       ) : null}
 
-      {props.enableCommandBar === undefined || props.enableCommandBar === true ? (
+      {/* {props.enableCommandBar === undefined || props.enableCommandBar === true ? (
         <CommandBar items={CommandBarItemProps} ariaLabel="Command Bar" farItems={CommandBarFarItemProps}  />
-      ) : null}
+      ) : null} */}
       {showSpinner ? <Spinner label="Updating..." ariaLive="assertive" labelPosition="right" size={SpinnerSize.large} /> : null}
 
       {showFilterCallout && filterCalloutComponent}
