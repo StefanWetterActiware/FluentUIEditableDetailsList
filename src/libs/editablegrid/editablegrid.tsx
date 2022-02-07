@@ -1489,7 +1489,6 @@ const EditableGrid = (props: Props) => {
           backgroundColor: 'white',
         })}>
         <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto} style={{width: '100%'}} >
-          <MarqueeSelection selection={_selection}>
           <DetailsList
             compact={true}
             items={
@@ -1564,7 +1563,6 @@ const EditableGrid = (props: Props) => {
             useReducedRowRenderer={props.useReducedRowRenderer}
             viewport={props.viewport}
           />
-          </MarqueeSelection>
         </ScrollablePane>
       </div>
       <Dialog hidden={!dialogContent} onDismiss={CloseRenameDialog} closeButtonAriaLabel="Close">
