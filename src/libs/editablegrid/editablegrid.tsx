@@ -186,6 +186,10 @@ const EditableGrid = (props: Props) => {
       setBackupDefaultGridData(data.map((obj) => ({ ...obj })));
       setGridEditState(false);
       SetGridItems(data);
+    }else if(props && props.items && props.items.length > 0) {
+      var data: any[] = InitializeInternalGrid(props.items);
+      setGridData(data);
+      SetGridItems(data);
     }
   }, [props.items]); // eslint-disable-line react-hooks/exhaustive-deps
 
