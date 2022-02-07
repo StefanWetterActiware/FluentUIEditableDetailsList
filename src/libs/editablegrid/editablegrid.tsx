@@ -186,14 +186,16 @@ const EditableGrid = (props: Props) => {
       setBackupDefaultGridData(data.map((obj) => ({ ...obj })));
       setGridEditState(false);
       SetGridItems(data);
-    }else if(props && props.items && props.items.length > 0) {
-      var data: any[] = InitializeInternalGrid(props.items);
-      setGridData(data);
-      SetGridItems(data);
-      // props.onGridSave(data);
-      // setDefaultGridData(data);
-      onGridSave();
     }
+    // }else if(props && props.items && props.items.length > 0) {
+    //   var data: any[] = InitializeInternalGrid(props.items);
+    //   setGridData(data);
+    //   SetGridItems(data);
+    //   saveData();
+    //   // props.onGridSave(data);
+    //   // setDefaultGridData(data);
+    //   // onGridSave();
+    // }
   }, [props.items]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -420,6 +422,38 @@ const EditableGrid = (props: Props) => {
     SetGridItems(newGridData);
   };
   /* #endregion */
+
+  function move(input: any[], from:number, to: number) {
+    let numberOfDeletedElm = 1;
+  
+    const elm = input.splice(from, numberOfDeletedElm)[0];
+  
+    numberOfDeletedElm = 0;
+  
+    input.splice(to, numberOfDeletedElm, elm);
+  }
+
+  const MoveRow = (v: number): void => {
+    // TODO: selektierte Zeile ist nach Verschiebung nicht mehr markiert.
+    // TODO: wenn index out of range
+    // TODO: mehrere Zeilen aufeinmal verschieben
+
+
+    let data = [...defaultGridData];
+
+    selectedItems!.forEach((item, _) => {
+      let oldIndex = data.indexOf(item);
+      let newIndex = oldIndex + v;
+      move(data, oldIndex, newIndex);
+    });
+
+    setGridEditState(true);
+    SetGridItems(data);
+    
+    setBackupDefaultGridData(data);
+    setGridData(data);
+    setDefaultGridData(data);
+  }
 
   /* #region [Grid Row Delete Functions] */
   const ShowMessageDialog = (message: string, subMessage: string): void => {
@@ -760,6 +794,12 @@ const EditableGrid = (props: Props) => {
         break;
       case EditType.AddRowWithData:
         setIsOpenForAdd(true);
+        break;
+      case EditType.MoveUp:
+        MoveRow(-1)
+        break;
+        case EditType.MoveDown:
+        MoveRow(1)
         break;
     }
 
@@ -1374,6 +1414,26 @@ const EditableGrid = (props: Props) => {
       });
     }
 
+    if (props.enableGridRowsSort) {
+      commandBarItems.push({
+        key: 'sortrowsup',
+        text: '',
+        disabled: false,
+        iconProps: { iconName: 'sortup' },
+        onClick: () => RowSelectOperations(EditType.MoveUp, {}),
+      });
+    }
+
+    if (props.enableGridRowsSort) {
+      commandBarItems.push({
+        key: 'sortrowsdown',
+        text: '',
+        disabled: false,
+        iconProps: { iconName: 'sortdown' },
+        onClick: () => RowSelectOperations(EditType.MoveDown, {}),
+      });
+    }
+
     return commandBarItems;
   };
 
@@ -1492,6 +1552,7 @@ const EditableGrid = (props: Props) => {
           backgroundColor: 'white',
         })}>
         <ScrollablePane scrollbarVisibility={ScrollbarVisibility.auto} style={{width: '100%'}} >
+        <MarqueeSelection selection={_selection}>
           <DetailsList
             compact={true}
             items={
@@ -1566,6 +1627,7 @@ const EditableGrid = (props: Props) => {
             useReducedRowRenderer={props.useReducedRowRenderer}
             viewport={props.viewport}
           />
+          </MarqueeSelection>
         </ScrollablePane>
       </div>
       <Dialog hidden={!dialogContent} onDismiss={CloseRenameDialog} closeButtonAriaLabel="Close">

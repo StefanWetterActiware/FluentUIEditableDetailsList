@@ -18,6 +18,7 @@ export interface Props extends IDetailsListProps {
     onGridSave?:any
     enableGridRowsDelete? : boolean;
     enableGridRowsAdd?: boolean;
+    enableGridRowsSort?: boolean;
     enableRowAddWithValues?: IRowAddWithValues;
     enableTextFieldEditMode?: boolean;
     enableTextFieldEditModeCancel?: boolean;

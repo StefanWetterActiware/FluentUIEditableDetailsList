@@ -9,5 +9,7 @@ export enum EditType {
     DeleteRow,
     AddRow,
     ColumnFilter,
-    AddRowWithData
+    AddRowWithData,
+    MoveUp,
+    MoveDown
 }
