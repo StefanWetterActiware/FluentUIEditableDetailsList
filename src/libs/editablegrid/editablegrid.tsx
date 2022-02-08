@@ -100,19 +100,23 @@ const EditableGrid = (props: Props) => {
   let filterStoreRef: any = React.useRef<IFilter[]>([]);
 
   const [undeletableRowSelected, setUndeletableRowSelected] = React.useState(false);
-  let _selection: Selection = new Selection({
-    onSelectionChanged: () => {
-      setSelectionDetails(_getSelectionDetails());
-      var selDetails = _selection.getSelection();
-      if (selDetails.length > 0) {
-        var res = false;
-        selDetails.forEach((item) => {
-          res = res || (props.undeleteableKeys || []).indexOf((item as any)['NameExtern']) >= 0;
-        });
-        setUndeletableRowSelected(res);
-      }
-    },
-  });
+  
+const [ _selection, _ ] = useState(new Selection({
+  
+  onSelectionChanged: () => {
+    setSelectionDetails(_getSelectionDetails());
+    
+    var selDetails = _selection.getSelection();
+    if (selDetails.length > 0) {
+      var res = false;
+      selDetails.forEach((item) => {
+        res = res || (props.undeleteableKeys || []).indexOf((item as any)['NameExtern']) >= 0;
+      });
+      setUndeletableRowSelected(res);
+    }
+  },
+}))
+
 
   const sortGrid = (): any[] => {
     var sortedGrid: any[] = [];
@@ -424,6 +428,10 @@ const EditableGrid = (props: Props) => {
   /* #endregion */
 
   function move(input: any[], from: number, to: number) {
+    if (from < 0 || to < 0){
+      return 
+    }
+
     let numberOfDeletedElm = 1;
 
     const elm = input.splice(from, numberOfDeletedElm)[0];
@@ -434,17 +442,27 @@ const EditableGrid = (props: Props) => {
   }
 
   const MoveRow = (v: number): void => {
-    // TODO: selektierte Zeile ist nach Verschiebung nicht mehr markiert.
-    // TODO: wenn index out of range
-    // TODO: mehrere Zeilen aufeinmal verschieben
+    
+    if (selectedItems!.length > 1) {
+      ShowMessageDialog('Verschieben', 'Das Verschieben mehrere Zeilen wird derzeit nicht unterstützt.');
+      return;
+    }
 
     let data = [...defaultGridData];
+    let items: any[] | undefined = [...selectedItems!];
 
-    selectedItems!.forEach((item, _) => {
+    items!.forEach((item, _) => {
       let oldIndex = data.indexOf(item);
       let newIndex = oldIndex + v;
       move(data, oldIndex, newIndex);
+      _selection.setIndexSelected(oldIndex, false, true);
+      _selection.setIndexSelected(newIndex, true, true);
     });
+    
+    // Hier müssen wir nochmal die selectedItems setzen, da sich diese irgendwie wieder verändern.
+    // Nach dem Verschieben ist dann immer das nun darübere Item in der Selection.
+    // TODO: @ole - herausfinden warum das so ist. Liegts am state, an der selection selbst oder was anderes.... ?
+    setSelectedItems(selectedItems);
 
     setGridEditState(true);
     SetGridItems(data);
