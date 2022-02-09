@@ -218,9 +218,13 @@ const [ _selection, _ ] = useState(new Selection({
     }
   }, [filterCalloutComponent]);
 
-  const onGridSave = (): void => {
+  const onGridSave = (data?: any[] | undefined): void => {
     if (props.onGridSave) {
-      props.onGridSave(defaultGridData);
+      if (!data || data === null) {
+        props.onGridSave(defaultGridData);
+      } else if (data && data.length > 0) {
+        props.onGridSave(data);
+      }
     }
   };
 
