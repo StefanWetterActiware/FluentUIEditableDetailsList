@@ -100,23 +100,23 @@ const EditableGrid = (props: Props) => {
   let filterStoreRef: any = React.useRef<IFilter[]>([]);
 
   const [undeletableRowSelected, setUndeletableRowSelected] = React.useState(false);
-  
-const [ _selection, _ ] = useState(new Selection({
-  
-  onSelectionChanged: () => {
-    setSelectionDetails(_getSelectionDetails());
-    
-    var selDetails = _selection.getSelection();
-    if (selDetails.length > 0) {
-      var res = false;
-      selDetails.forEach((item) => {
-        res = res || (props.undeleteableKeys || []).indexOf((item as any)['NameExtern']) >= 0;
-      });
-      setUndeletableRowSelected(res);
-    }
-  },
-}))
 
+  const [_selection, _] = useState(
+    new Selection({
+      onSelectionChanged: () => {
+        setSelectionDetails(_getSelectionDetails());
+
+        var selDetails = _selection.getSelection();
+        if (selDetails.length > 0) {
+          var res = false;
+          selDetails.forEach((item) => {
+            res = res || (props.undeleteableKeys || []).indexOf((item as any)['NameExtern']) >= 0;
+          });
+          setUndeletableRowSelected(res);
+        }
+      },
+    })
+  );
 
   const sortGrid = (): any[] => {
     var sortedGrid: any[] = [];
@@ -432,8 +432,8 @@ const [ _selection, _ ] = useState(new Selection({
   /* #endregion */
 
   function move(input: any[], from: number, to: number) {
-    if (from < 0 || to < 0){
-      return 
+    if (from < 0 || to < 0) {
+      return;
     }
 
     let numberOfDeletedElm = 1;
@@ -446,7 +446,6 @@ const [ _selection, _ ] = useState(new Selection({
   }
 
   const MoveRow = (v: number): void => {
-    
     if (selectedItems!.length > 1) {
       ShowMessageDialog('Verschieben', 'Das Verschieben mehrere Zeilen wird derzeit nicht unterstützt.');
       return;
@@ -462,7 +461,7 @@ const [ _selection, _ ] = useState(new Selection({
       _selection.setIndexSelected(oldIndex, false, true);
       _selection.setIndexSelected(newIndex, true, true);
     });
-    
+
     // Hier müssen wir nochmal die selectedItems setzen, da sich diese irgendwie wieder verändern.
     // Nach dem Verschieben ist dann immer das nun darübere Item in der Selection.
     // TODO: @ole - herausfinden warum das so ist. Liegts am state, an der selection selbst oder was anderes.... ?
