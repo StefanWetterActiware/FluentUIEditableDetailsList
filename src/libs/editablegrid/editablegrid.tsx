@@ -1431,7 +1431,7 @@ const [ _selection, _ ] = useState(new Selection({
       });
     }
 
-    if (props.enableGridRowsSort) {
+    if (props.enableGridRowsSort && selectedItems && selectedItems.length === 1) {
       commandBarItems.push({
         key: 'sortrowsup',
         text: '',
@@ -1439,9 +1439,7 @@ const [ _selection, _ ] = useState(new Selection({
         iconProps: { iconName: 'sortup' },
         onClick: () => RowSelectOperations(EditType.MoveUp, {}),
       });
-    }
 
-    if (props.enableGridRowsSort) {
       commandBarItems.push({
         key: 'sortrowsdown',
         text: '',
