@@ -474,6 +474,7 @@ const [ _selection, _ ] = useState(new Selection({
     setBackupDefaultGridData(data);
     setGridData(data);
     setDefaultGridData(data);
+    onGridSave(data);
   };
 
   /* #region [Grid Row Delete Functions] */
