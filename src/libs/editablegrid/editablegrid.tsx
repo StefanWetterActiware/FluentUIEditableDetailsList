@@ -464,7 +464,6 @@ const EditableGrid = (props: Props) => {
 
     // Hier müssen wir nochmal die selectedItems setzen, da sich diese irgendwie wieder verändern.
     // Nach dem Verschieben ist dann immer das nun darübere Item in der Selection.
-    // TODO: @ole - herausfinden warum das so ist. Liegts am state, an der selection selbst oder was anderes.... ?
     setSelectedItems(selectedItems);
 
     setGridEditState(true);
