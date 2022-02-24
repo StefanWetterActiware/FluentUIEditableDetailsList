@@ -524,7 +524,9 @@ const EditableGrid = (props: Props) => {
     defaultGridDataTmp = [...defaultGridDataArr];
     var internalRowNumDefaultGrid = defaultGridDataTmp.findIndex((row) => row._grid_row_id_ === rowNum);
     var internalRowNumActivateGrid = activateCellEdit.findIndex((row) => row['properties']['_grid_row_id_']['value'] === rowNum);
-    defaultGridDataTmp[internalRowNumDefaultGrid][key] = activateCellEdit[internalRowNumActivateGrid]['properties'][key]['value'];
+    if (activateCellEdit[internalRowNumActivateGrid]['properties'].hasOwnProperty(key)) {
+      defaultGridDataTmp[internalRowNumDefaultGrid][key] = activateCellEdit[internalRowNumActivateGrid]['properties'][key]['value'];
+    }
     if (defaultGridDataTmp[internalRowNumDefaultGrid]['_grid_row_operation_'] !== Operation.Add) {
       defaultGridDataTmp[internalRowNumDefaultGrid]['_grid_row_operation_'] = Operation.Update;
     }
